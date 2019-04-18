@@ -14,6 +14,7 @@ import { EditFestivalComponent } from './edit-festival/edit-festival.component';
 import { LoginComponent } from './login/login.component';
 import { ManipDonneesService } from './manip-donnees.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatGridListModule
   ],
   providers: [ManipDonneesService],
   bootstrap: [AppComponent]
