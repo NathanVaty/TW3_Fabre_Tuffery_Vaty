@@ -1,7 +1,7 @@
 <h2>
 Recherche rapide
 </h2>
-
+<form>
 <h4>
 Domaine
 </h4>
@@ -20,11 +20,7 @@ Domaine
   </h4>
   <mat-form-field>
   <mat-label>choisir l'année</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
-    </mat-option>
-  </mat-select>
+  <input matInput type="number">
   </mat-form-field>
 
   <h4>
@@ -32,11 +28,7 @@ Domaine
   </h4>
   <mat-form-field>
   <mat-label>choisir le mois</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
-    </mat-option>
-  </mat-select>
+  <input matInput type="mouth">
 </mat-form-field>
 <div>
 
@@ -44,5 +36,5 @@ Domaine
   <button mat-raised-button>Valider</button>
 
 </div>
-
 </div>
+</form>
