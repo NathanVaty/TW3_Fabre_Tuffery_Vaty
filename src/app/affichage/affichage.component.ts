@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ManipDonneesService } from '../manip-donnees.service';
 
 @Component({
   selector: 'app-affichage',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AffichageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private bd: ManipDonneesService) { }
 
   ngOnInit() {
+    var p = this.bd.getDonnees();
+    console.log(p);
   }
 
 }
