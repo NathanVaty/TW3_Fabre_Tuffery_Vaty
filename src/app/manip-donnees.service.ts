@@ -1,18 +1,37 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import * as firebase from 'firebase';
+import firestore from 'firebase/firestore';
+
+const settings = {timestampsInSnapshots: true};
+const config = {
+    apiKey: "AIzaSyAUb9j58oUSM4HAUFmrPuw91IdtyQEftjw",
+    authDomain: "testpw3-e1de4.firebaseapp.com",
+    databaseURL: "https://testpw3-e1de4.firebaseio.com",
+    projectId: "testpw3-e1de4",
+    storageBucket: "testpw3-e1de4.appspot.com",
+    messagingSenderId: "625846866119"
+  };
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManipDonneesService {
-
-  var ref;
+  private ref;
   constructor() {
     firebase.initializeApp(config);
     firebase.firestore().settings(settings);
-    ref = firebase.firestore(); 
+    this.ref = firebase.firestore();
   }
 
   getDonnees() {
-
+    this.ref.collection('festivals').get().then(function(doc) {
+      doc.forEach(function(res){
+        console.log(res.data()); // récup données de la collection festivals
+        return res;
+      });
+    });
   }
+
+
 }

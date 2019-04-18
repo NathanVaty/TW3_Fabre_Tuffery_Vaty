@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { ManipDonneesService } from './manip-donnees.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule.forRoot(routes),
+    AppRoutingModule,
     BrowserAnimationsModule
   ],
   providers: [ManipDonneesService],
