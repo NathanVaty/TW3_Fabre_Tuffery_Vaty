@@ -1,3 +1,48 @@
-<p>
-  formulaire works!
-</p>
+<h2>
+Recherche rapide
+</h2>
+
+<h4>
+Domaine
+</h4>
+<form>
+<mat-form-field>
+  <mat-label>choisir le domaine</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+
+  <h4>
+  Année Création
+  </h4>
+  <mat-form-field>
+  <mat-label>choisir l'année</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+
+  <h4>
+  Mois Début
+  </h4>
+  <mat-form-field>
+  <mat-label>choisir le mois</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div>
+
+  <button mat-raised-button>Annuler</button>
+  <button mat-raised-button>Valider</button>
+
+</div>
+
+</form>
