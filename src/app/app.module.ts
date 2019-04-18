@@ -12,6 +12,8 @@ import { AjoutFestivalComponent } from './ajout-festival/ajout-festival.componen
 import { SuppFestivalComponent } from './supp-festival/supp-festival.component';
 import { EditFestivalComponent } from './edit-festival/edit-festival.component';
 import { LoginComponent } from './login/login.component';
+import { ManipDonneesService } from './manip-donnees.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,10 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule.forRoot(routes)
+    AppRoutingModule.forRoot(routes),
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ManipDonneesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
