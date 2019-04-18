@@ -4,8 +4,8 @@ import {AffichageComponent} from './affichage/affichage.component';
 
 const routes: Routes = [
   {
-    path: '/', component: AffichageComponent },
-    { path: '**', redirectTo: 'home' }
+    path: '', component: AffichageComponent },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
