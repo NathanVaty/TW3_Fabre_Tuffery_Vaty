@@ -25,12 +25,14 @@ export class ManipDonneesService {
   }
 
   getDonnees() {
+    var tab = [];
     this.ref.collection('festivals').get().then(function(doc) {
       doc.forEach(function(res){
-        console.log(res.data()); // récup données de la collection festivals
-        return res;
+        tab.push(res.data());
       });
     });
+    console.log(tab);
+    return tab;
   }
 
 
