@@ -26,7 +26,7 @@ export class CarteComponent implements OnInit {
     }).addTo(mapFestival);
 
     /* Appel de la fonction getDonnees dans un tableau de festival */
-    let festivalList = this.data.getDonnees();
+    var festivalList = this.data.getDonnees();
 
     /* Création d'un marqueur */
     const myMark = L.icon({
@@ -35,9 +35,11 @@ export class CarteComponent implements OnInit {
 
     console.log("ajout des festivals sur la carte");
     console.log("avant le for");
+    console.log(festivalList);
+    console.log(festivalList.length); // renvoie 0
+    console.log(festivalList.values(0));
     /* Pour chaque festival on ajoute un marqueur */
     for (let i of festivalList){
-      console.log("coucou je suis dans le for");
       console.log(festivalList[i].coordonnees_insee);
       /* Création de variable pour le marqueur */
       //var latitude = festivalList[i].coordonnees_insee[0];
