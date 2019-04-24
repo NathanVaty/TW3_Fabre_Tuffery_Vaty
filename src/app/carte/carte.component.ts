@@ -27,7 +27,7 @@ export class CarteComponent implements OnInit {
 
     /* Appel de la fonction getDonnees dans un tableau de festival */
     var festivalList = this.data.getDonnees();
-
+    //console.log(festivalList[0]);
     /* Création d'un marqueur */
     const myMark = L.icon({
       iconUrl :'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
@@ -35,9 +35,12 @@ export class CarteComponent implements OnInit {
 
     console.log("ajout des festivals sur la carte");
     console.log("avant le for");
-    console.log(festivalList);
-    console.log(festivalList.length); // renvoie 0
-    console.log(festivalList.values(0));
+    console.log(festivalList); // renvoie 0;
+    console.log(festivalList[0]);
+
+    var liste = ['oui','non']
+    //console.log(liste[0]);
+
     /* Pour chaque festival on ajoute un marqueur */
     for (let i of festivalList){
       console.log(festivalList[i].coordonnees_insee);
@@ -53,7 +56,7 @@ export class CarteComponent implements OnInit {
       //L.marker([latitude, longitude], {icon: myMark}).bindPopup(name).addTo(myMap);
     }
 
-    console.log("on a finis la generation de la carte");
+    //console.log("on a finis la generation de la carte");
 
   }
 
