@@ -18,10 +18,29 @@ export class EnTeteComponent {
 
   constructor(public dialog: MatDialog) { }
 
+  //======RECHERCHE================
+
+  rechercheAvancee(): void {
+    console.log("Dialog recherche open");
+      const dialogRef = this.dialog.open(DialogRecherche, {
+      width: '400px',
+      height:'400px'
+    });
+    /* Lors de la fermeture de la page */
+    dialogRef.afterClosed().subscribe(result => {
+     console.log('Dialog recherche closed');
+   });
+  }
+
+
+
+  //======CONNEXION================
+
   connectionAdmin(): void {
     console.log("Dialog connect admin open");
-      const dialogRef = this.dialog.open(adminConnect, {
+      const dialogRef = this.dialog.open(AdminConnect, {
       width: '250px',
+      height:'100px',
       data: {ndc: this.ndc, mdp: this.mdp}
     });
     /* Lors de la fermeture de la page */
@@ -38,11 +57,27 @@ export class EnTeteComponent {
   selector: 'admin-connect',
   templateUrl: 'adminConnect.html',
 })
-export class adminConnect {
+export class AdminConnect {
 
   constructor(
-    public dialogRef: MatDialogRef<adminConnect>,
+    public dialogRef: MatDialogRef<AdminConnect>,
     @Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'dialog-recherche',
+  templateUrl: 'dialogRecherche.html',
+})
+export class DialogRecherche {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogRecherche>
+  ){}
 
   onNoClick(): void {
     this.dialogRef.close();
