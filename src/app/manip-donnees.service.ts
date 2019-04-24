@@ -31,8 +31,36 @@ export class ManipDonneesService {
         tab.push(res.data());
       });
     });
-    console.log(tab);
+    console.log("tab renvoyé par getDonnees dans la fct :", tab);
+    console.log("taille tab :", tab.length);
     return tab;
+  }
+
+  getDataSnap(){
+    var tabSnap = [];
+    var tabCoord = [];
+
+    this.ref.collection('festivals').get().then(function(doc){
+      if (doc.exists) {
+        doc.forEach(function(res){
+          tabSnap.push(res.data());
+        });
+        console.log("tab renvoyé par getDataSnap T dans la fct :", tabSnap);
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        doc.forEach(function(res){
+          var item = res.data();
+          var testCoord = res.data().coordonnees_insee;
+          console.log("test :", testCoord);
+          console.log("item de la bd:", item);
+          tabSnap.push(item);
+          tabCoord.push(testCoord);
+        });
+        console.log("tab renvoyé par getDataSnap F dans la fct :", tabSnap);
+        console.log("tab des Coordonnée :", tabCoord);
+    }
+    });
   }
 
 

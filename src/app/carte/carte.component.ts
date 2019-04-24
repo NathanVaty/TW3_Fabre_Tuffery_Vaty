@@ -35,23 +35,26 @@ export class CarteComponent implements OnInit {
 
     console.log("ajout des festivals sur la carte");
     console.log("avant le for");
-    console.log(festivalList);
-    console.log(festivalList.length); // renvoie 0
-    console.log(festivalList.values(0));
+    console.log("element du festivalList", festivalList);
+    console.log("data.getDonnees:", this.data.getDonnees());
+    console.log("taille festival liste : ", festivalList.length); // renvoie 0
+    console.log("taille getDonnees :", this.data.getDonnees().length);
+    console.log("test avec snap :", this.data.getDataSnap());
+
     /* Pour chaque festival on ajoute un marqueur */
-    for (let i of festivalList){
-      console.log(festivalList[i].coordonnees_insee);
+    //for (var i of festivalList){
+    //  console.log(festivalList[i].coordonnees_insee);
       /* Création de variable pour le marqueur */
       //var latitude = festivalList[i].coordonnees_insee[0];
       //var longitude = festivalList[i].coordonnees_insee[1];
       //var name = festivalList[i].nom_de_la_manifestation;
 
       /* Affichage des marqueur */
-      L.marker([festivalList[i].coordonnees_insee[0], festivalList[i].coordonnees_insee[1]], {icon: myMark})
-      .addTo(mapFestival)
-      .bindPopup(festivalList[i].nom_de_la_manifestation);
+    //  L.marker([festivalList[i].coordonnees_insee[0], festivalList[i].coordonnees_insee[1]], {icon: myMark})
+    //  .addTo(mapFestival)
+    //  .bindPopup(festivalList[i].nom_de_la_manifestation);
       //L.marker([latitude, longitude], {icon: myMark}).bindPopup(name).addTo(myMap);
-    }
+    //}
 
     console.log("on a finis la generation de la carte");
 
