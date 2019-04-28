@@ -26,37 +26,31 @@ export class CarteComponent implements OnInit {
     }).addTo(mapFestival);
 
     /* Appel de la fonction getDonnees dans un tableau de festival */
-    var festivalList = this.data.getDonnees();
-    //console.log(festivalList[0]);
-    /* Création d'un marqueur */
-    const myMark = L.icon({
-      iconUrl :'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
+    let festivalList;
+    this.data.getDonnees().then((value) => {
+      festivalList = value;
+      /* Création d'un marqueur */
+      const myMark = L.icon({
+        iconUrl :'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
+      });
+
+      /* Pour chaque festival on ajoute un marqueur */
+      for (let festival of festivalList){
+        console.log(festival.coordonnees_insee);
+        /* Création de variable pour le marqueur */
+        //var latitude = festivalList[i].coordonnees_insee[0];
+        //var longitude = festivalList[i].coordonnees_insee[1];
+        //var name = festivalList[i].nom_de_la_manifestation;
+
+        /* Affichage des marqueur */
+        L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
+        .addTo(mapFestival)
+        .bindPopup(festival.nom_de_la_manifestation);
+        //L.marker([latitude, longitude], {icon: myMark}).bindPopup(name).addTo(myMap);
+      }
+
+      //console.log("on a finis la generation de la carte");
     });
-
-    console.log("ajout des festivals sur la carte");
-    console.log("avant le for");
-    console.log(festivalList); // renvoie 0;
-    console.log(festivalList[0]);
-
-    var liste = ['oui','non']
-    //console.log(liste[0]);
-
-    /* Pour chaque festival on ajoute un marqueur */
-    for (let i of festivalList){
-      console.log(festivalList[i].coordonnees_insee);
-      /* Création de variable pour le marqueur */
-      //var latitude = festivalList[i].coordonnees_insee[0];
-      //var longitude = festivalList[i].coordonnees_insee[1];
-      //var name = festivalList[i].nom_de_la_manifestation;
-
-      /* Affichage des marqueur */
-      L.marker([festivalList[i].coordonnees_insee[0], festivalList[i].coordonnees_insee[1]], {icon: myMark})
-      .addTo(mapFestival)
-      .bindPopup(festivalList[i].nom_de_la_manifestation);
-      //L.marker([latitude, longitude], {icon: myMark}).bindPopup(name).addTo(myMap);
-    }
-
-    //console.log("on a finis la generation de la carte");
 
   }
 
