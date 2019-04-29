@@ -21,7 +21,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
+import {AdminConnect} from './en-tete/en-tete.component';
+import {DialogRecherche} from './en-tete/en-tete.component';
+
+
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { FormsModule } from '@angular/forms';
     SuppFestivalComponent,
     EditFestivalComponent,
     LoginComponent,
-    AdminConnect
+    AdminConnect,
+    DialogRecherche
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,7 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule
   ],
+  entryComponents: [AdminConnect, DialogRecherche],
   providers: [ManipDonneesService],
   entryComponents: [AdminConnect],
   bootstrap: [AppComponent]
