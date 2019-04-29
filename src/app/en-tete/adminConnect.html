@@ -1,15 +1,16 @@
-<h1 mat-dialog-title>Connectez-vous</h1>
-<div mat-dialog-content>
-  <p>Nom de compte :</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.ndc">
-  </mat-form-field>
-  <p>mot de passe :</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.mdp">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Quitter</button>
-  <button mat-button [mat-dialog-close]="data.ndc" cdkFocusInitial>Connecter</button>
-</div>
+
+    <h1 mat-dialog-title>Connectez-vous</h1>
+    <div mat-dialog-content>
+      <p>Nom de compte :</p>
+      <mat-form-field>
+        <input matInput [(ngModel)]="data.ndc">
+      </mat-form-field>
+      <p>mot de passe :</p>
+      <mat-form-field>
+        <input matInput type="password" [(ngModel)]="data.mdp">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Quitter</button>
+      <button mat-button mat-primary [mat-dialog-close] (click)="data" cdkFocusInitial>Connecter</button>
+    </div>

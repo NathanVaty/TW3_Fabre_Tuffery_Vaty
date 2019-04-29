@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Observable } from 'rxjs';
 
 export interface AdminConnectData {
   ndc: string;
@@ -15,22 +16,30 @@ export class EnTeteComponent {
 
   ndc: string;
   mdp: string;
+  connect: boolean; // Variable False => invite True => Admin
 
   constructor(public dialog: MatDialog) { }
 
   connectionAdmin(): void {
     console.log("Dialog connect admin open");
-      const dialogRef = this.dialog.open(adminConnect, {
-      width: '250px',
-      data: {ndc: this.ndc, mdp: this.mdp}
+      const dialogRef = this.dialog.open(AdminConnect, {
+      width: '400px',
+      height: '400px',
+      data: {ndc: this.ndc, mdp: this.mdp, connect:this.connect}
     });
+
+
     /* Lors de la fermeture de la page */
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(data => {
      console.log('Dialog connect admin closed');
-     this.mdp = result;
+     console.log("affichage saisieDialog : ", data);
+     console.log("verifConnection :");
+     //this.ndc = result;
+     //this.mdp = result;
+     //console.log("ndc :", this.ndc);
+     //console.log("mdp :", this.mdp);
    });
   }
-
 }
 // ===================================================================
 
@@ -38,11 +47,16 @@ export class EnTeteComponent {
   selector: 'admin-connect',
   templateUrl: 'adminConnect.html',
 })
-export class adminConnect {
+export class AdminConnect {
+
+  ndc: string;
+  mdp: string;
 
   constructor(
-    public dialogRef: MatDialogRef<adminConnect>,
-    @Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {}
+    public dialogRef: MatDialogRef<AdminConnect>,
+    @Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {
+      console.log("donnee : ",data);
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
