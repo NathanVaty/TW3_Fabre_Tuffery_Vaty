@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AffichageComponent } from './affichage/affichage.component';
 import { EnTeteComponent } from './en-tete/en-tete.component';
-import { AdminConnect } from './en-tete/en-tete.component';
 import { FormulaireComponent } from './formulaire/formulaire.component';
 import { CarteComponent } from './carte/carte.component';
 import { AnalyseComponent } from './analyse/analyse.component';
@@ -21,7 +20,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {AdminConnect} from './en-tete/en-tete.component';
 import {DialogRecherche} from './en-tete/en-tete.component';
 
@@ -53,11 +52,12 @@ import {DialogRecherche} from './en-tete/en-tete.component';
     MatFormFieldModule,
     MatDialogModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   entryComponents: [AdminConnect, DialogRecherche],
   providers: [ManipDonneesService],
-  entryComponents: [AdminConnect],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

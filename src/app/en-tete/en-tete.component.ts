@@ -1,6 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 export interface AdminConnectData {
   ndc: string;
@@ -42,16 +44,15 @@ export class EnTeteComponent {
     console.log("Dialog connect admin open");
       const dialogRef = this.dialog.open(AdminConnect, {
       width: '400px',
-      height: '400px',
-      data: {ndc: this.ndc, mdp: this.mdp, connect:this.connect}
+      height: '400px'
+      //data: {ndc: this.ndc, mdp: this.mdp, connect:this.connect}
     });
 
 
     /* Lors de la fermeture de la page */
     dialogRef.afterClosed().subscribe(data => {
+     console.log("envoie data :", data);
      console.log('Dialog connect admin closed');
-     console.log("affichage saisieDialog : ", data);
-     console.log("verifConnection :");
      //this.ndc = result;
      //this.mdp = result;
      //console.log("ndc :", this.ndc);
@@ -61,23 +62,33 @@ export class EnTeteComponent {
 }
 // ===================================================================
 
+// Component admin dialog
 @Component({
   selector: 'admin-connect',
   templateUrl: 'adminConnect.html',
 })
 export class AdminConnect {
 
-  ndc: string;
-  mdp: string;
+  formLogin: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<AdminConnect>,
-    @Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {
-      console.log("donnee : ",data);
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<AdminConnect>){
+      this.formLogin = this.formBuilder.group({
+        ndc:['', Validators.required],
+        mdp:['', Validators.required]
+      });
     }
+    //@Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  submit() {
+    // Fermeture de la popup connectionAdmin ==> renvoie des valeurs au Component pere (en-tete.component)
+    this.dialogRef.close(JSON.stringify(this.formLogin.value));
+    console.log(JSON.stringify(this.formLogin.value));
   }
 
 }
