@@ -2,13 +2,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from '../login.service';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 export interface AdminConnectData {
   ndc: string;
   mdp: string;
 }
+
 
 @Component({
   selector: 'app-en-tete',
@@ -23,6 +23,21 @@ export class EnTeteComponent implements OnInit  {
 
   constructor(public dialog: MatDialog,
               private login: LoginService) { }
+
+
+  //======AJOUTER UN FESTIVAL================
+
+  ajoutFestival(): void {
+    console.log("Dialog ajout open");
+      const dialogRef = this.dialog.open(AjoutFestival, {
+      width: '500px',
+      height:'600px'
+    });
+    /* Lors de la fermeture de la page */
+    dialogRef.afterClosed().subscribe(result => {
+     console.log('Dialog ajout closed');
+   });
+  }
 
   //======RECHERCHE================
 
@@ -115,5 +130,24 @@ export class DialogRecherche {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+}
+
+@Component({
+  selector: 'ajout-festival',
+  templateUrl: 'ajoutFestival.html',
+})
+export class AjoutFestival {
+
+  formLogin: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<AjoutFestival>){
+      this.formLogin = this.formBuilder.group({
+        ndc:['', Validators.required],
+        mdp:['', Validators.required]
+      });
+    }
 
 }

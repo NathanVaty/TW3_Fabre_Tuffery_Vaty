@@ -23,8 +23,9 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {AdminConnect} from './en-tete/en-tete.component';
 import {DialogRecherche} from './en-tete/en-tete.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import { LoginService } from './login.service';
+import {AjoutFestival} from './en-tete/en-tete.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+ import {MatNativeDateModule} from '@angular/material';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { LoginService } from './login.service';
     EditFestivalComponent,
     LoginComponent,
     AdminConnect,
-    DialogRecherche
+    DialogRecherche,
+    AjoutFestival
   ],
   imports: [
     BrowserModule,
@@ -55,10 +57,11 @@ import { LoginService } from './login.service';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTabsModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  entryComponents: [AdminConnect, DialogRecherche],
-  providers: [ManipDonneesService,LoginService],
+  entryComponents: [AdminConnect, DialogRecherche, AjoutFestival],
+  providers: [ManipDonneesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
