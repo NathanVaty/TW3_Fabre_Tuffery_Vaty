@@ -23,7 +23,8 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {AdminConnect} from './en-tete/en-tete.component';
 import {DialogRecherche} from './en-tete/en-tete.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
+import { LoginService } from './login.service';
 
 
 @NgModule({
@@ -53,10 +54,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTabsModule
   ],
   entryComponents: [AdminConnect, DialogRecherche],
-  providers: [ManipDonneesService],
+  providers: [ManipDonneesService,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,7 +11,8 @@
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">Quitter</button>
-      <button mat-button mat-primary [mat-dialog-close] [disabled]='formLogin.pristine || formLogin.invalid' type="submit">Connecter</button>
+      <button mat-raised-button (click)="onNoClick()">Quitter</button>
+      <button mat-raised-button mat-primary
+      [disabled]='formLogin.pristine || formLogin.invalid'>Connecter</button>
     </div>
 </form>

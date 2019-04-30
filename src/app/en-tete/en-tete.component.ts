@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from '../login.service';
 
 
 export interface AdminConnectData {
@@ -14,13 +15,14 @@ export interface AdminConnectData {
   templateUrl: './en-tete.component.html',
   styleUrls: ['./en-tete.component.css']
 })
-export class EnTeteComponent {
+export class EnTeteComponent implements OnInit  {
 
   ndc: string;
   mdp: string;
-  connect: boolean; // Variable False => invite True => Admin
+  connect; // Variable False => invite True => Admin
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              private login: LoginService) { }
 
   //======RECHERCHE================
 
@@ -36,28 +38,29 @@ export class EnTeteComponent {
    });
   }
 
+  ngOnInit(){
+    this.login.adminSub.subscribe((value) => {
+      this.connect = value;
+    });
+  }
 
 
   //======CONNEXION================
 
   connectionAdmin(): void {
-    console.log("Dialog connect admin open");
+    //console.log("Dialog connect admin open");
       const dialogRef = this.dialog.open(AdminConnect, {
       width: '400px',
       height: '400px'
-      //data: {ndc: this.ndc, mdp: this.mdp, connect:this.connect}
     });
-
 
     /* Lors de la fermeture de la page */
     dialogRef.afterClosed().subscribe(data => {
-     console.log("envoie data :", data);
-     console.log('Dialog connect admin closed');
-     //this.ndc = result;
-     //this.mdp = result;
-     //console.log("ndc :", this.ndc);
-     //console.log("mdp :", this.mdp);
    });
+  }
+
+  deconnexion() {
+    this.login.deconnexion();
   }
 }
 // ===================================================================
@@ -71,9 +74,11 @@ export class AdminConnect {
 
   formLogin: FormGroup;
 
+  quitter = false;
   constructor(
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AdminConnect>){
+    public dialogRef: MatDialogRef<AdminConnect>,
+    private login: LoginService){
       this.formLogin = this.formBuilder.group({
         ndc:['', Validators.required],
         mdp:['', Validators.required]
@@ -82,13 +87,17 @@ export class AdminConnect {
     //@Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {}
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.quitter = true;
   }
 
   submit() {
+    if(this.quitter == false) {
+      this.login.connexion(this.formLogin.value);
+    }
+    this.quitter = false;
     // Fermeture de la popup connectionAdmin ==> renvoie des valeurs au Component pere (en-tete.component)
     this.dialogRef.close(JSON.stringify(this.formLogin.value));
-    console.log(JSON.stringify(this.formLogin.value));
+    //alert(JSON.stringify(this.formLogin.value));
   }
 
 }
