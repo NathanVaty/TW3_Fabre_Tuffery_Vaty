@@ -23,7 +23,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {AdminConnect} from './en-tete/en-tete.component';
 import {DialogRecherche} from './en-tete/en-tete.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -52,7 +52,8 @@ import {DialogRecherche} from './en-tete/en-tete.component';
     MatFormFieldModule,
     MatDialogModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [AdminConnect, DialogRecherche],
   providers: [ManipDonneesService],

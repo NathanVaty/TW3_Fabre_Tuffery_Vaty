@@ -1,26 +1,32 @@
 <h2>
 Recherche rapide
 </h2>
-<!-- <form>
+<form [formGroup] = "angForm" (ngSubmit) = "onSubmit()">
 <h4>
 Domaine
 </h4>
 <div class="example-container">
 <mat-form-field>
   <mat-label>choisir le domaine</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
+  <mat-select formControlName ="domaine">
+    <mat-option *ngFor="let domaine of domaines"
+      [value]="domaine" >
+      {{domaine}}
     </mat-option>
   </mat-select>
 </mat-form-field>
 
   <h4>
-  Année Création
+  Département
   </h4>
   <mat-form-field>
-  <mat-label>choisir l'année</mat-label>
-  <input matInput type="number">
+  <mat-label>choisir le département</mat-label>
+  <mat-select formControlName ="departement">
+    <mat-option *ngFor="let unDep of departements"
+      [value]="unDep" >
+      {{unDep.num}} {{unDep.nom}}
+    </mat-option>
+  </mat-select>
   </mat-form-field>
 
   <h4>
@@ -28,13 +34,18 @@ Domaine
   </h4>
   <mat-form-field>
   <mat-label>choisir le mois</mat-label>
-  <input matInput type="month">
+  <mat-select formControlName ="mois_habituel_de_debut">
+    <mat-option *ngFor="let unMois of mois"
+      [value]="unMois" >
+      {{unMois}}
+    </mat-option>
+  </mat-select>
 </mat-form-field>
 <div>
 
-  <button mat-raised-button>Annuler</button>
-  <button mat-raised-button>Valider</button>
+  <button mat-raised-button (click)="reset()">Annuler</button>
+  <button mat-raised-button [disabled]="angForm.pristine || angForm.invalid">Valider</button>
 
 </div>
 </div>
-</form> -->
+</form>

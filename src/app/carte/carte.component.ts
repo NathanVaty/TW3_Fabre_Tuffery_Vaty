@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManipDonneesService } from '../manip-donnees.service';
+import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
 
 import * as L from "leaflet";
 
@@ -11,7 +13,8 @@ import * as L from "leaflet";
 })
 export class CarteComponent implements OnInit {
 
-  constructor(private data: ManipDonneesService) {
+  marqueurs = L.layerGroup();
+  constructor(private bd: ManipDonneesService) {
     console.log("carte component");
   }
 
@@ -25,32 +28,37 @@ export class CarteComponent implements OnInit {
       maxZoom: 20,
     }).addTo(mapFestival);
 
-    /* Appel de la fonction getDonnees dans un tableau de festival */
     let festivalList;
-    this.data.getDonnees().then((value) => {
-      festivalList = value;
+    this.bd.tabDSub.subscribe((value) => {
+       festivalList = value;
+      console.log(festivalList);
+
+
       /* Création d'un marqueur */
       const myMark = L.icon({
         iconUrl :'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
       });
 
+      this.marqueurs.clearLayers();
+
       /* Pour chaque festival on ajoute un marqueur */
       for (let festival of festivalList){
-        console.log(festival.coordonnees_insee);
         /* Création de variable pour le marqueur */
-        //var latitude = festivalList[i].coordonnees_insee[0];
-        //var longitude = festivalList[i].coordonnees_insee[1];
-        //var name = festivalList[i].nom_de_la_manifestation;
-
         /* Affichage des marqueur */
-        L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
-        .addTo(mapFestival)
-        .bindPopup(festival.nom_de_la_manifestation);
-        //L.marker([latitude, longitude], {icon: myMark}).bindPopup(name).addTo(myMap);
-      }
+          L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
+          .bindPopup(festival.nom_de_la_manifestation)
+          .addTo(this.marqueurs);
 
-      //console.log("on a finis la generation de la carte");
+
+        // L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
+        // .addTo(mapFestival)
+        // .bindPopup(festival.nom_de_la_manifestation);
+      }
+      mapFestival.addLayer(this.marqueurs);
+
     });
+
+
 
   }
 
