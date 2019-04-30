@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ManipDonneesService } from '../manip-donnees.service';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
+import { LoginService } from '../login.service';
 
 import * as L from "leaflet";
 
@@ -14,7 +15,9 @@ import * as L from "leaflet";
 export class CarteComponent implements OnInit {
 
   marqueurs = L.layerGroup();
-  constructor(private bd: ManipDonneesService) {
+  connect;
+  constructor(private bd: ManipDonneesService,
+              private login: LoginService) {
     console.log("carte component");
   }
 
@@ -27,6 +30,38 @@ export class CarteComponent implements OnInit {
       attribution:'Carte des festivals',
       maxZoom: 20,
     }).addTo(mapFestival);
+
+    this.login.adminSub.subscribe((value) => {
+      this.connect = value;
+
+      /* Création d'un marqueur */
+      const myMark = L.icon({
+        iconUrl :'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
+      });
+
+      this.marqueurs.clearLayers();
+
+      /* Pour chaque festival on ajoute un marqueur */
+      for (let festival of festivalList){
+        let texteFest = "Nom: " + festival.nom_de_la_manifestation + "<br>"
+                    + "Début: " + festival.date_de_debut + "<br>"
+                    + "Date de création: " + festival.date_de_creation + "<br>"
+                    + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>";
+                    texteFest = this.connect ?
+                    texteFest + '<a href="dab()">Modifier</button><button >Supprimer</button>' : texteFest;
+        /* Création de variable pour le marqueur */
+        /* Affichage des marqueur */
+          L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
+          .bindPopup(texteFest)
+          .addTo(this.marqueurs);
+
+
+        // L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
+        // .addTo(mapFestival)
+        // .bindPopup(festival.nom_de_la_manifestation);
+      }
+      mapFestival.addLayer(this.marqueurs);
+    });
 
     let festivalList;
     this.bd.tabDSub.subscribe((value) => {
@@ -41,20 +76,29 @@ export class CarteComponent implements OnInit {
 
       this.marqueurs.clearLayers();
 
+
       /* Pour chaque festival on ajoute un marqueur */
       for (let festival of festivalList){
+        let texteFest = "Nom: " + festival.nom_de_la_manifestation + "<br>"
+                    + "Début: " + festival.date_de_debut + "<br>"
+                    + "Date de création: " + festival.date_de_creation + "<br>"
+                    + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>";
+                    texteFest = this.connect ?
+                    //startBtn = this.createButton('Modifier', container)
+                    texteFest + "<button onclick ='dab()'>Modifier</button><button >Supprimer</button>"
+                    : texteFest;
         /* Création de variable pour le marqueur */
         /* Affichage des marqueur */
           L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
-          .bindPopup(festival.nom_de_la_manifestation)
+          .bindPopup(texteFest)
           .addTo(this.marqueurs);
       }
       mapFestival.addLayer(this.marqueurs);
 
     });
-
-
-
   }
 
+  dab(){
+    console.log("dab");
+  }
 }

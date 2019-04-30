@@ -23,6 +23,9 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {AdminConnect} from './en-tete/en-tete.component';
 import {DialogRecherche} from './en-tete/en-tete.component';
+import {AjoutFestival} from './en-tete/en-tete.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+ import {MatNativeDateModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
@@ -38,7 +41,8 @@ import { ChartsModule } from 'ng2-charts';
     EditFestivalComponent,
     LoginComponent,
     AdminConnect,
-    DialogRecherche
+    DialogRecherche,
+    AjoutFestival
   ],
   imports: [
     BrowserModule,
@@ -53,9 +57,11 @@ import { ChartsModule } from 'ng2-charts';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+      ChartsModule
   ],
-  entryComponents: [AdminConnect, DialogRecherche],
+  entryComponents: [AdminConnect, DialogRecherche, AjoutFestival],
   providers: [ManipDonneesService],
   bootstrap: [AppComponent]
 })

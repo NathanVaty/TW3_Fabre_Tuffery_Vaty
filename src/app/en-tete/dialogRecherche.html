@@ -13,7 +13,7 @@ Nom :
 Région:
 </h4>
   <mat-form-field>
-  <mat-label>Entrer le nom du festival</mat-label>
+  <mat-label>Entrer la région</mat-label>
   <input matInput>
 </mat-form-field>
 
@@ -21,7 +21,7 @@ Région:
 Département :
 </h4>
 <mat-form-field>
-<mat-label>Entrer le nom du festival</mat-label>
+<mat-label>Entrer le département</mat-label>
 <input matInput>
 </mat-form-field>
 
@@ -29,8 +29,13 @@ Département :
 Domaine :
 </h4>
 <mat-form-field>
-<mat-label>Entrer le nom du festival</mat-label>
-<input matInput>
+<mat-label>Entrer le domaine</mat-label>
+<mat-select formControlName ="domaine">
+  <mat-option *ngFor="let domaine of domaines"
+    [value]="domaine" >
+    {{domaine}}
+  </mat-option>
+</mat-select>
 </mat-form-field>
 
 <div>
