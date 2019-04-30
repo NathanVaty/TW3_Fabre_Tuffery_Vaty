@@ -1,5 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 export interface AdminConnectData {
   ndc: string;
@@ -15,6 +18,7 @@ export class EnTeteComponent {
 
   ndc: string;
   mdp: string;
+  connect: boolean; // Variable False => invite True => Admin
 
   constructor(public dialog: MatDialog) { }
 
@@ -39,32 +43,52 @@ export class EnTeteComponent {
   connectionAdmin(): void {
     console.log("Dialog connect admin open");
       const dialogRef = this.dialog.open(AdminConnect, {
-      width: '250px',
-      height:'100px',
-      data: {ndc: this.ndc, mdp: this.mdp}
+      width: '400px',
+      height: '400px'
+      //data: {ndc: this.ndc, mdp: this.mdp, connect:this.connect}
     });
+
+
     /* Lors de la fermeture de la page */
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(data => {
+     console.log("envoie data :", data);
      console.log('Dialog connect admin closed');
-     this.mdp = result;
+     //this.ndc = result;
+     //this.mdp = result;
+     //console.log("ndc :", this.ndc);
+     //console.log("mdp :", this.mdp);
    });
   }
-
 }
 // ===================================================================
 
+// Component admin dialog
 @Component({
   selector: 'admin-connect',
   templateUrl: 'adminConnect.html',
 })
 export class AdminConnect {
 
+  formLogin: FormGroup;
+
   constructor(
-    public dialogRef: MatDialogRef<AdminConnect>,
-    @Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {}
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<AdminConnect>){
+      this.formLogin = this.formBuilder.group({
+        ndc:['', Validators.required],
+        mdp:['', Validators.required]
+      });
+    }
+    //@Inject(MAT_DIALOG_DATA) public data: AdminConnectData) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  submit() {
+    // Fermeture de la popup connectionAdmin ==> renvoie des valeurs au Component pere (en-tete.component)
+    this.dialogRef.close(JSON.stringify(this.formLogin.value));
+    console.log(JSON.stringify(this.formLogin.value));
   }
 
 }
