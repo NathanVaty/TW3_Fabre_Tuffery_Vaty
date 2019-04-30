@@ -48,11 +48,6 @@ export class CarteComponent implements OnInit {
           L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
           .bindPopup(festival.nom_de_la_manifestation)
           .addTo(this.marqueurs);
-
-
-        // L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
-        // .addTo(mapFestival)
-        // .bindPopup(festival.nom_de_la_manifestation);
       }
       mapFestival.addLayer(this.marqueurs);
 
