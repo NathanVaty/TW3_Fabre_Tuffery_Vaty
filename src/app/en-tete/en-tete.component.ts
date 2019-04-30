@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {LoginService } from '../login.service';
+import { LoginService } from '../login.service';
 
 export interface AdminConnectData {
   ndc: string;
