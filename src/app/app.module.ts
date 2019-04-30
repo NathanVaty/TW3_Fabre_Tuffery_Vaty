@@ -25,7 +25,9 @@ import {AdminConnect} from './en-tete/en-tete.component';
 import {DialogRecherche} from './en-tete/en-tete.component';
 import {AjoutFestival} from './en-tete/en-tete.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
- import {MatNativeDateModule} from '@angular/material';
+import {MatNativeDateModule} from '@angular/material';
+import {MatTabsModule} from '@angular/material/tabs';
+import {LoginService} from './login.service';
 
 
 @NgModule({
@@ -61,7 +63,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatNativeDateModule
   ],
   entryComponents: [AdminConnect, DialogRecherche, AjoutFestival],
-  providers: [ManipDonneesService],
+  providers: [ManipDonneesService,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

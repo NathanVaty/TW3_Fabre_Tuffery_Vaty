@@ -1,0 +1,92 @@
+<h1 mat-dialog-title>Modifier un festival</h1>
+<form>
+<h4>
+Nom :
+</h4>
+<div class="example-container">
+  <mat-form-field>
+  <mat-label>Entrer le nom du festival</mat-label>
+  <input matInput>
+  </mat-form-field>
+
+<h4>
+Ville:
+</h4>
+  <mat-form-field>
+  <mat-label>Entrer la ville</mat-label>
+  <input matInput>
+</mat-form-field>
+
+<h4>
+Code Postal:
+</h4>
+  <mat-form-field>
+  <mat-label>Entrer le code postal</mat-label>
+  <input matInput>
+</mat-form-field>
+
+<h4>
+Département :
+</h4>
+<mat-form-field>
+<mat-label>Entrer le département</mat-label>
+<input matInput>
+</mat-form-field>
+
+<h4>
+Domaine :
+</h4>
+<mat-form-field>
+<mat-label>Entrer le domaine</mat-label>
+<mat-select formControlName ="domaine">
+  <mat-option *ngFor="let domaine of domaines"
+    [value]="domaine" >
+    {{domaine}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+
+<h4>
+Complement :
+</h4>
+<mat-form-field>
+<mat-label>Entrer le complement</mat-label>
+<textarea matInput placeholder="Textarea"></textarea>
+</mat-form-field>
+
+<h4>
+Date Création :
+</h4>
+<mat-form-field>
+<input matInput [matDatepicker]="myDatepicker" placeholder="Choisir une date">
+  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepicker></mat-datepicker>
+</mat-form-field>
+
+<h4>
+Site Internet :
+</h4>
+<mat-form-field>
+<mat-label>Entrer le site internet</mat-label>
+<input matInput>
+</mat-form-field>
+
+
+
+<h4>
+Code INSEC :
+</h4>
+<mat-form-field>
+<mat-label>Entrer le code INSEC</mat-label>
+<input matInput>
+</mat-form-field>
+
+
+
+<div>
+  <button mat-raised-button>Annuler</button>
+  <button mat-raised-button>Modifier</button>
+
+</div>
+</div>
+</form>
