@@ -27,6 +27,7 @@ import {AjoutFestival} from './en-tete/en-tete.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
  import {MatNativeDateModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
+import { LoginService } from './login.service';
 
 @NgModule({
   declarations: [

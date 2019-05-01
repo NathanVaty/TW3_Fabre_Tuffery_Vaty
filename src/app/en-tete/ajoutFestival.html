@@ -1,13 +1,22 @@
 <h1 mat-dialog-title>Ajouter un festival</h1>
 <form>
+<div class="example-container">
+
+<h4>
+Code INSEE :
+</h4>
+<mat-form-field>
+<mat-label>Entrer le code INSEE</mat-label>
+<input matInput>
+</mat-form-field>
+
 <h4>
 Nom :
 </h4>
-<div class="example-container">
-  <mat-form-field>
-  <mat-label>Entrer le nom du festival</mat-label>
-  <input matInput>
-  </mat-form-field>
+<mat-form-field>
+<mat-label>Entrer le nom du festival</mat-label>
+<input matInput>
+</mat-form-field>
 
 <h4>
 Ville:
@@ -20,9 +29,9 @@ Ville:
 <h4>
 Code Postal:
 </h4>
-  <mat-form-field>
-  <mat-label>Entrer le code postal</mat-label>
-  <input matInput>
+<mat-form-field>
+<input matInput #postalCode maxlength="5" placeholder="Code Postal">
+<mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
 </mat-form-field>
 
 <h4>
@@ -32,6 +41,26 @@ Département :
 <mat-label>Entrer le département</mat-label>
 <input matInput>
 </mat-form-field>
+
+<h4>
+Région :
+</h4>
+<mat-form-field>
+<mat-label>Entrer la région</mat-label>
+<input matInput>
+</mat-form-field>
+
+
+<h4>
+Coordonnées INSEE :
+</h4>
+<mat-form-field>
+<input type="number" matInput placeholder="x">
+</mat-form-field>
+<mat-form-field>
+<input type="number" matInput placeholder="y">
+</mat-form-field>
+
 
 <h4>
 Domaine :
@@ -58,10 +87,50 @@ Complement :
 Date Création :
 </h4>
 <mat-form-field>
-<input matInput [matDatepicker]="myDatepicker" placeholder="Choisir une date">
-  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-  <mat-datepicker #myDatepicker></mat-datepicker>
+<input matInput [matDatepicker]="dateCreat" placeholder="Choisir une date">
+  <mat-datepicker-toggle matSuffix [for]="dateCreat"></mat-datepicker-toggle>
+  <mat-datepicker #dateCreat></mat-datepicker>
 </mat-form-field>
+
+<h4>
+Date Début :
+</h4>
+<mat-form-field>
+<input matInput [matDatepicker]="dateDeb" placeholder="Choisir une date">
+  <mat-datepicker-toggle matSuffix [for]="dateDeb"></mat-datepicker-toggle>
+  <mat-datepicker #dateDeb></mat-datepicker>
+</mat-form-field>
+
+<h4>
+Date Fin :
+</h4>
+<mat-form-field>
+<input matInput [matDatepicker]="dateFin" placeholder="Choisir une date">
+  <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
+  <mat-datepicker #dateFin></mat-datepicker>
+</mat-form-field>
+
+<h4>
+Mois Début
+</h4>
+<mat-form-field>
+<mat-label>choisir le mois</mat-label>
+<mat-select formControlName ="mois_habituel_de_debut">
+  <mat-option *ngFor="let unMois of mois"
+    [value]="unMois" >
+    {{unMois}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+
+<h4>
+Périodicité:
+</h4>
+<mat-form-field>
+<mat-label>Entrer la périodicité</mat-label>
+<input matInput>
+</mat-form-field>
+
 
 <h4>
 Site Internet :
@@ -70,17 +139,6 @@ Site Internet :
 <mat-label>Entrer le site internet</mat-label>
 <input matInput>
 </mat-form-field>
-
-
-
-<h4>
-Code INSEC :
-</h4>
-<mat-form-field>
-<mat-label>Entrer le code INSEC</mat-label>
-<input matInput>
-</mat-form-field>
-
 
 
 <div>
