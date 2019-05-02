@@ -3,7 +3,6 @@
 <h4>
 Nom :
 </h4>
-<div class="example-container">
   <mat-form-field>
   <mat-label>Entrer le nom du festival</mat-label>
   <input matInput>
@@ -38,7 +37,12 @@ Région :
 </h4>
 <mat-form-field>
 <mat-label>Entrer la région</mat-label>
-<input matInput>
+<mat-select formControlName ="region-festival">
+  <mat-option *ngFor="let uneRegion of region"
+    [value]="uneRegion" >
+    {{uneRegion}}
+  </mat-option>
+</mat-select>
 </mat-form-field>
 
 <h4>
@@ -46,6 +50,8 @@ Coordonnées INSEE :
 </h4>
 <mat-form-field>
 <input type="number" matInput placeholder="x">
+</mat-form-field>
+<mat-form-field>
 <input type="number" matInput placeholder="y">
 </mat-form-field>
 
@@ -64,10 +70,10 @@ Domaine :
 </mat-form-field>
 
 <h4>
-Complement :
+Complément :
 </h4>
 <mat-form-field>
-<mat-label>Entrer le complement</mat-label>
+<mat-label>Entrer le complément</mat-label>
 <textarea matInput placeholder="Entrer le complément"></textarea>
 </mat-form-field>
 
@@ -130,9 +136,8 @@ Site Internet :
 
 
 <div>
-  <button mat-raised-button>Supprimer</button>
+  <button mat-raised-button  (click)="confirmationSupprimer()">Supprimer</button>
   <button mat-raised-button>Modifier</button>
 
-</div>
 </div>
 </form>

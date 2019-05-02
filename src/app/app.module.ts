@@ -24,6 +24,7 @@ import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {AdminConnect} from './en-tete/en-tete.component';
 import {DialogRecherche} from './en-tete/en-tete.component';
 import {AjoutFestival} from './en-tete/en-tete.component';
+import {ConfirmationSupprimer} from './edit-festival/edit-festival.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
  import {MatNativeDateModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
@@ -44,7 +45,8 @@ import { InfoUtileService } from './info-utile.service';
     LoginComponent,
     AdminConnect,
     DialogRecherche,
-    AjoutFestival
+    AjoutFestival,
+    ConfirmationSupprimer
   ],
   imports: [
     BrowserModule,
@@ -63,8 +65,8 @@ import { InfoUtileService } from './info-utile.service';
     MatNativeDateModule,
       ChartsModule
   ],
-  entryComponents: [AdminConnect, DialogRecherche, AjoutFestival],
-  providers: [ManipDonneesService,LoginService,InfoUtileService],
+  entryComponents: [AdminConnect, DialogRecherche, AjoutFestival,ConfirmationSupprimer],
+  providers: [ManipDonneesService,LoginService, InfoUtileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

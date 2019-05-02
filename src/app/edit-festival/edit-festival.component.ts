@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-edit-festival',
@@ -45,9 +46,38 @@ export class EditFestivalComponent implements OnInit {
     'La Réunion'
   ];
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
+
+  confirmationSupprimer(): void {
+    console.log("confirmation supprimer open");
+      const dialogRef = this.dialog.open(ConfirmationSupprimer, {
+      width: '300px',
+      height:'225px'
+    });
+    /* Lors de la fermeture de la page */
+    dialogRef.afterClosed().subscribe(result => {
+     console.log('canfirmation supprimer closed');
+   });
+  }
+
 
   ngOnInit() {
+  }
+
+}
+
+@Component({
+  selector: 'confirmation-supprimer',
+  templateUrl: 'confirmationSupprimer.html',
+})
+export class ConfirmationSupprimer {
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmationSupprimer>
+  ){}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
