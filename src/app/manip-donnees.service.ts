@@ -24,6 +24,30 @@ export class ManipDonneesService {
 
   private tabD;
   tabDSub = new Subject();
+
+
+  code_insee: string;
+  code_postal: string;
+  commentaires: string;
+  commune_principale: string;
+  complement_domaine: string;
+  coordonnees_insee: number[];
+  date_de_creation: string;
+  date_de_debut: string;
+  date_de_fin: string;
+  departement: string;
+  domaine: string;
+  libelle_commune_pour_calcul_cp_insee: string;
+  mois_habituel_de_debut: string;
+  mois_indicatif_en_chiffre_y_compris_double_mois: string;
+  ndeg_de_l_edition_2019: number;
+  ndeg_identification: string;
+  nom_de_la_manifestation: string;
+  nom_departement: string;
+  periodicite: string;
+  region: string;
+  site_web: string;
+
   constructor() {
     firebase.initializeApp(config);
     firebase.firestore().settings(settings);
@@ -128,7 +152,49 @@ export class ManipDonneesService {
     //   "geometry": {"type": "Point", "coordinates": [4.0061261454, 49.3196081983]}
 
     let unFestival: InfoFestival;
-    //unFestival.fields.departement = data[];
+    for (let champs of Object.keys(data)){
+      console.log(champs);
+      console.log(data[champs]);
+      switch(champs) {
+        case "code_insee": unFestival['fields'].code_insee = data[champs];
+        break;
+        case "code_postal": unFestival.fields.code_postal = data[champs];
+        break;
+        case "commune_principale": unFestival.fields.commune_principale = data[champs];
+                  unFestival.fields.libelle_commune_pour_calcul_cp_insee = data[champs];
+        break;
+        case "complement_domaine": unFestival.fields.complement_domaine = data[champs];
+        break;
+        case "coordonnees_insee_x": unFestival.fields.coordonnees_insee[0] = data[champs];
+        break;
+        case "coordonnees_insee_y": unFestival.fields.coordonnees_insee[1] = data[champs];
+        break;
+        case "date_de_creation": unFestival.fields.date_de_creation = data[champs];
+        break;
+        case "date_de_debut": unFestival.fields.date_de_debut = data[champs];
+        break;
+        case "date_de_fin": unFestival.fields.date_de_fin = data[champs];
+        break;
+        case "departement": unFestival.fields.departement = data[champs].num;
+                            unFestival.fields.nom_departement = data[champs].nom;
+        break;
+        case "domaine": unFestival.fields.domaine = data[champs];
+        break;
+        case "mois_habituel_de_debut": unFestival.fields.mois_habituel_de_debut = data[champs];
+        unFestival.fields.mois_indicatif_en_chiffre_y_compris_double_mois = data[champs];
+        break;
+        case "nom_de_la_manifestation": unFestival.fields.nom_de_la_manifestation = data[champs];
+        break;
+        case "periodicite": unFestival.fields.periodicite = data[champs];
+        break;
+        case "region": unFestival.fields.region = data[champs];
+        break;
+        case "site_web": unFestival.fields.site_web = data[champs];
+        break;
+      }
+    }
+
+    console.log(unFestival);
   }
 
 }
