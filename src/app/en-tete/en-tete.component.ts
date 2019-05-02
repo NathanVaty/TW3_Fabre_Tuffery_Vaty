@@ -152,8 +152,9 @@ export class AjoutFestival implements OnInit {
   formAjout: FormGroup;
   mois;
   region;
-  departement;
+  departements;
   domaines;
+  periodicites;
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AjoutFestival>,
@@ -181,8 +182,9 @@ export class AjoutFestival implements OnInit {
     ngOnInit(){
       this.mois = this.info.getMois();
       this.region = this.info.getRegion();
-      this.departement = this.info.getDepartement();
+      this.departements = this.info.getDepartement();
       this.domaines = this.info.getDomaine();
+      this.periodicites = this.info.getPeriodicite();
     }
 
     onSubmit() {
