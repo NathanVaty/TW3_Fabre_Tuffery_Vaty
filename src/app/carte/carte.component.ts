@@ -48,7 +48,9 @@ export class CarteComponent implements OnInit {
                     + "Date de création: " + festival.date_de_creation + "<br>"
                     + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>";
                     texteFest = this.connect ?
-                    texteFest + '<a href="dab()">Modifier</button><button >Supprimer</button>' : texteFest;
+                    texteFest + "<a href='/modif/"+ festival.code_insee + "' target='_blank'>Modifier/Supprimer</a>"
+                    : texteFest;
+
         /* Création de variable pour le marqueur */
         /* Affichage des marqueur */
           L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
@@ -84,8 +86,7 @@ export class CarteComponent implements OnInit {
                     + "Date de création: " + festival.date_de_creation + "<br>"
                     + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>";
                     texteFest = this.connect ?
-                    //startBtn = this.createButton('Modifier', container)
-                    texteFest + "<button onclick ='dab()'>Modifier</button><button >Supprimer</button>"
+                  texteFest + "<a href='/modif/'"+ festival.code_insee + "' target='_blank'>Modifier/Supprimer</a>"
                     : texteFest;
         /* Création de variable pour le marqueur */
         /* Affichage des marqueur */

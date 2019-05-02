@@ -1,37 +1,76 @@
 <h1 mat-dialog-title>Ajouter un festival</h1>
-<form>
+<form [formGroup]="formAjout" (ngSubmit)="onSubmit()">
+
+
+<h4>
+Code INSEE :
+</h4>
+<mat-form-field>
+<mat-label>Entrer le code INSEE</mat-label>
+<input matInput formControlName="code_insee">
+</mat-form-field>
+
 <h4>
 Nom :
 </h4>
-<div class="example-container">
-  <mat-form-field>
-  <mat-label>Entrer le nom du festival</mat-label>
-  <input matInput>
-  </mat-form-field>
+<mat-form-field>
+<mat-label>Entrer le nom du festival</mat-label>
+<input matInput formControlName="nom_de_la_manifestation">
+</mat-form-field>
 
 <h4>
 Ville:
 </h4>
   <mat-form-field>
   <mat-label>Entrer la ville</mat-label>
-  <input matInput>
+  <input matInput formControlName="commune_principale">
 </mat-form-field>
 
 <h4>
 Code Postal:
 </h4>
-  <mat-form-field>
-  <mat-label>Entrer le code postal</mat-label>
-  <input matInput>
+<mat-form-field>
+<input matInput #postalCode maxlength="5" placeholder="Code Postal" formControlName="code_postal">
+<mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
 </mat-form-field>
 
 <h4>
 Département :
 </h4>
 <mat-form-field>
-<mat-label>Entrer le département</mat-label>
-<input matInput>
+<mat-label>Choisir le département</mat-label>
+<mat-select formControlName ="nom_departement">
+  <mat-option *ngFor="let unDep of departements"
+    [value]="unDep" >
+    {{unDep.nom}}
+  </mat-option>
+</mat-select>
 </mat-form-field>
+
+<h4>
+Région :
+</h4>
+<mat-form-field>
+<mat-label>Choisir la région</mat-label>
+<mat-select formControlName ="region">
+  <mat-option *ngFor="let uneRegion of region"
+    [value]="uneRegion" >
+    {{uneRegion}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+
+
+<h4>
+Coordonnées INSEE :
+</h4>
+<mat-form-field>
+<input type="number" matInput placeholder="x" formControlName="coordonnees_insee_x">
+</mat-form-field>
+<mat-form-field>
+<input type="number" matInput placeholder="y" formControlName="coordonnees_insee_y">
+</mat-form-field>
+
 
 <h4>
 Domaine :
@@ -47,46 +86,82 @@ Domaine :
 </mat-form-field>
 
 <h4>
-Complement :
+Complément domaine:
 </h4>
 <mat-form-field>
 <mat-label>Entrer le complement</mat-label>
-<textarea matInput placeholder="Textarea"></textarea>
+<textarea matInput placeholder="Textarea" formControlName="complement_domaine"></textarea>
 </mat-form-field>
 
 <h4>
 Date Création :
 </h4>
 <mat-form-field>
-<input matInput [matDatepicker]="myDatepicker" placeholder="Choisir une date">
-  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-  <mat-datepicker #myDatepicker></mat-datepicker>
+<input matInput [matDatepicker]="dateCreat" placeholder="Choisir une date"
+formControlName="date_de_creation">
+  <mat-datepicker-toggle matSuffix [for]="dateCreat"></mat-datepicker-toggle>
+  <mat-datepicker #dateCreat></mat-datepicker>
 </mat-form-field>
+
+<h4>
+Date Début :
+</h4>
+<mat-form-field>
+<input matInput [matDatepicker]="dateDeb" placeholder="Choisir une date"
+  formControlName="date_de_debut">
+  <mat-datepicker-toggle matSuffix [for]="dateDeb"></mat-datepicker-toggle>
+  <mat-datepicker #dateDeb></mat-datepicker>
+</mat-form-field>
+
+<h4>
+Date Fin :
+</h4>
+<mat-form-field>
+<input matInput [matDatepicker]="dateFin" placeholder="Choisir une date"
+  formControlName="date_de_fin">
+  <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
+  <mat-datepicker #dateFin></mat-datepicker>
+</mat-form-field>
+
+<h4>
+Mois Début
+</h4>
+<mat-form-field>
+<mat-label>choisir le mois</mat-label>
+<mat-select formControlName ="mois_habituel_de_debut">
+  <mat-option *ngFor="let unMois of mois"
+    [value]="unMois" >
+    {{unMois}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+
+<h4>
+Périodicité:
+</h4>
+<mat-form-field>
+<mat-label>Entrer la périodicité</mat-label>
+<mat-select formControlName ="periodicite">
+  <mat-option *ngFor="let periode of periodicites"
+    [value]="periode" >
+    {{periode}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+
 
 <h4>
 Site Internet :
 </h4>
 <mat-form-field>
 <mat-label>Entrer le site internet</mat-label>
-<input matInput>
+<input matInput formControlName="site_web">
 </mat-form-field>
-
-
-
-<h4>
-Code INSEC :
-</h4>
-<mat-form-field>
-<mat-label>Entrer le code INSEC</mat-label>
-<input matInput>
-</mat-form-field>
-
 
 
 <div>
   <button mat-raised-button>Annuler</button>
-  <button mat-raised-button>Ajouter</button>
+  <button mat-raised-button [disabled]="formAjout.pristine || formAjout.invalid">Ajouter</button>
 
-</div>
 </div>
 </form>
