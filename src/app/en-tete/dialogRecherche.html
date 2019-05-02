@@ -9,20 +9,38 @@ Nom :
   <input matInput>
   </mat-form-field>
 
-<h4>
-Région:
-</h4>
+  <h4>
+  Ville:
+  </h4>
+    <mat-form-field>
+    <mat-label>Entrer la ville</mat-label>
+    <input matInput>
+  </mat-form-field>
+
+  <h4>
+  Région :
+  </h4>
   <mat-form-field>
-  <mat-label>Entrer la région</mat-label>
-  <input matInput>
-</mat-form-field>
+  <mat-label>Choisir la région</mat-label>
+  <mat-select formControlName ="region">
+    <mat-option *ngFor="let uneRegion of region"
+      [value]="uneRegion" >
+      {{uneRegion}}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
 
 <h4>
 Département :
 </h4>
 <mat-form-field>
-<mat-label>Entrer le département</mat-label>
-<input matInput>
+<mat-label>Choisir le département</mat-label>
+<mat-select formControlName ="nom_departement">
+  <mat-option *ngFor="let unDep of departements"
+    [value]="unDep" >
+    {{unDep.nom}}
+  </mat-option>
+</mat-select>
 </mat-form-field>
 
 <h4>
@@ -34,6 +52,19 @@ Domaine :
   <mat-option *ngFor="let domaine of domaines"
     [value]="domaine" >
     {{domaine}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+
+<h4>
+Mois Début
+</h4>
+<mat-form-field>
+<mat-label>choisir le mois</mat-label>
+<mat-select formControlName ="mois_habituel_de_debut">
+  <mat-option *ngFor="let unMois of mois"
+    [value]="unMois" >
+    {{unMois}}
   </mat-option>
 </mat-select>
 </mat-form-field>
