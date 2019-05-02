@@ -40,9 +40,9 @@ Département :
 <mat-form-field>
 <mat-label>Choisir le département</mat-label>
 <mat-select formControlName ="nom_departement">
-  <mat-option *ngFor="let departement of departements"
-    [value]="departement" >
-    {{departement.nom}}
+  <mat-option *ngFor="let unDep of departements"
+    [value]="unDep" >
+    {{unDep.nom}}
   </mat-option>
 </mat-select>
 </mat-form-field>
@@ -142,11 +142,9 @@ Périodicité:
 <mat-form-field>
 <mat-label>Entrer la périodicité</mat-label>
 <mat-select formControlName ="periodicite">
-  <mat-option [value]="Annuelle">
-    Annuelle
-  </mat-option>
-  <mat-option [value]="Mensuelle">
-    Mensuelle
+  <mat-option *ngFor="let periode of periodicites"
+    [value]="periode" >
+    {{periode}}
   </mat-option>
 </mat-select>
 </mat-form-field>
@@ -165,5 +163,6 @@ Site Internet :
   <button mat-raised-button>Annuler</button>
   <button mat-raised-button [disabled]="formAjout.pristine || formAjout.invalid">Ajouter</button>
 
+</div>
 </div>
 </form>

@@ -684,6 +684,13 @@ export class InfoUtileService {
     "regionName" : null
   }
 ];
+  periodicites = [
+    'Annuelle',
+    'Bi-Annuelle',
+    'Biennale',
+    'Biennale années impaires',
+    'Biennale années paires'
+  ]
 
   setDepartement(deps) {
     let tab: Departement[] = [];
@@ -710,5 +717,8 @@ export class InfoUtileService {
   }
   getDomaine(){
     return this.domaines;
+  }
+  getPeriodicite() {
+    return this.periodicites;
   }
 }
