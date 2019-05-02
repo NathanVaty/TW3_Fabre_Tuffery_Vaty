@@ -140,14 +140,22 @@ export class DialogRecherche {
 })
 export class AjoutFestival {
 
-  formLogin: FormGroup;
+  formAjout: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     public dialogRef: MatDialogRef<AjoutFestival>){
-      this.formLogin = this.formBuilder.group({
-        ndc:['', Validators.required],
-        mdp:['', Validators.required]
+      this.formAjout = this.fb.group({
+        nom_de_la_manifestation:['', Validators.required],
+        commune_principale:['', Validators.required],
+        code_postal:['', Validators.required],
+        nom_departement:['', Validators.required],
+        complement_domaine:['', Validators.required],
+        date_de_creation:['', Validators.required],
+        site_web:['', Validators.required],
+        code_insee:['', Validators.required],
+        coordonnees_insee_x:['',Validators.required],
+        coordonnees_insee_y:['', Validators.required],
       });
     }
 

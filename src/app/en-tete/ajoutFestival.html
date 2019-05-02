@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Ajouter un festival</h1>
-<form>
+<form [formGroup]="formAjout">
 <h4>
 Nom :
 </h4>
@@ -47,7 +47,7 @@ Domaine :
 </mat-form-field>
 
 <h4>
-Complement :
+Complement domaine:
 </h4>
 <mat-form-field>
 <mat-label>Entrer le complement</mat-label>
@@ -71,17 +71,25 @@ Site Internet :
 <input matInput>
 </mat-form-field>
 
-
-
 <h4>
-Code INSEC :
+Code INSEE :
 </h4>
 <mat-form-field>
-<mat-label>Entrer le code INSEC</mat-label>
+<mat-label>Entrer le code INSEE</mat-label>
 <input matInput>
 </mat-form-field>
 
-
+<h4>
+Coordonnées festivals :
+</h4>
+<mat-form-field>
+<mat-label>Entrer la latitude</mat-label>
+<input matInput>
+</mat-form-field>
+<mat-form-field>
+<mat-label>Entrer la longitude</mat-label>
+<input matInput>
+</mat-form-field>
 
 <div>
   <button mat-raised-button>Annuler</button>
