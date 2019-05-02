@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManipDonneesService } from '../manip-donnees.service';
 import { FormGroup,  FormBuilder,  Validators, FormControl } from '@angular/forms';
+import { InfoUtileService } from '../info-utile.service';
 
 export interface Departement {
   num: string;
@@ -14,31 +15,15 @@ export interface Departement {
 })
 
 export class FormulaireComponent implements OnInit {
-   mois  =[
-     '',
-     '01 (janvier)',
-     '02 (février)',
-     '03 (mars)',
-     '04 (avril)',
-     '05 (mai)',
-     '06 (juin)',
-     '07 (juillet)',
-     '08 (août)',
-     '09 (septembre)',
-     '10 (octobre)',
-     '11 (novembre)',
-     '12 (décembre)'
-   ];
-  domaines = [''];
-  numDep = [];
-  departements: Departement[] = [
-    {num: '', nom: ''}
-  ];
+  mois;
+  departements;
+  domaines;
+
   clickAnnul = false;
   donnees: any = {};
   angForm: FormGroup;
   formCt = new FormControl('',[]);
-  constructor(private bd: ManipDonneesService,private fb: FormBuilder) {
+  constructor(private bd: ManipDonneesService,private fb: FormBuilder, private info: InfoUtileService) {
     this.createForm();
    }
 
@@ -51,21 +36,9 @@ export class FormulaireComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bd.tabDSub.subscribe((tab) => {
-      let data = tab;
-      for (const i of Object.keys(data)) {
-        if (this.domaines.indexOf(data[i].domaine) == -1) {
-            this.domaines.push(data[i].domaine);
-        }
-        if (this.numDep.indexOf(data[i].departement) == -1) {
-          this.departements.push({
-            num: data[i].departement,
-            nom: data[i].nom_departement
-          });
-          this.numDep.push(data[i].departement);
-        }
-      }
-    });
+    this.mois = this.info.getMois();
+    this.departements = this.info.getDepartement();
+    this.domaines = this.info.getDomaine();
   }
   reset() {
     this.clickAnnul = true;

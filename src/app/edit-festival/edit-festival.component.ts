@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { InfoUtileService } from '../info-utile.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-festival',
@@ -9,31 +10,32 @@ import { InfoUtileService } from '../info-utile.service';
 })
 export class EditFestivalComponent implements OnInit {
 
-  lesMois : mois;
+  mois;
+  domaines;
+  periodicites;
+  region ;
+  formAjout: FormGroup;
 
-  region =[
-    '',
-    'Auvergne-Rhône-Alpes',
-    'Bougogne-Franche-Comté',
-    'Bretagne',
-    'Centre-Val de Loire',
-    'Corse',
-    'Grand Est',
-    'Guadeloupe',
-    'Guyane',
-    'Hauts-de-France',
-    'Île-de-France',
-    'Martinique',
-    'Mayotte',
-    'Normandie',
-    'Nouvelle-Aquitaine',
-    'Occitanie',
-    'Pays de la Loire',
-    'Provence-Alpes-Côte d Azur',
-    'La Réunion'
-  ];
-
-  constructor(public dialog: MatDialog) { }
+  constructor(private fb: FormBuilder,public dialog: MatDialog, private infoUtileService : InfoUtileService) {
+    this.formAjout = this.fb.group({
+      code_insee: ['', Validators.required],
+      nom_de_la_manifestation:['', Validators.required],
+      commune_principale:['', Validators.required],
+      code_postal:['', Validators.required],
+      nom_departement:['', Validators.required],
+      region: ['', Validators.required],
+      domaine: ['', Validators.required],
+      mois_habituel_de_debut: ['', Validators.required],
+      complement_domaine:['', ],
+      date_de_creation:[new Date(), Validators.required],
+      date_de_debut: [new Date(),Validators.required],
+      date_de_fin: [new Date(),Validators.required],
+      site_web:['', ],
+      periodicite: ['',Validators.required],
+      coordonnees_insee_x:['',Validators.required],
+      coordonnees_insee_y:['', Validators.required],
+    });
+  }
 
   confirmationSupprimer(): void {
     console.log("confirmation supprimer open");
@@ -49,7 +51,10 @@ export class EditFestivalComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getMois();
+    this.mois = this.infoUtileService.getMois();
+    this.region = this.infoUtileService.getRegion();
+    this.domaines = this.infoUtileService.getDomaine();
+    this.periodicites = this.infoUtileService.getPeriodicite();
   }
 
 }

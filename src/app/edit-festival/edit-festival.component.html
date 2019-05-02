@@ -36,8 +36,8 @@ Département :
 Région :
 </h4>
 <mat-form-field>
-<mat-label>Entrer la région</mat-label>
-<mat-select formControlName ="region-festival">
+<mat-label>Choisir la région</mat-label>
+<mat-select formControlName ="region">
   <mat-option *ngFor="let uneRegion of region"
     [value]="uneRegion" >
     {{uneRegion}}
@@ -61,7 +61,7 @@ Domaine :
 </h4>
 <mat-form-field>
 <mat-label>Entrer le domaine</mat-label>
-<mat-select formControlName ="domaine">
+<mat-select formControlName ="domaines">
   <mat-option *ngFor="let domaine of domaines"
     [value]="domaine" >
     {{domaine}}
@@ -122,7 +122,12 @@ Périodicité:
 </h4>
 <mat-form-field>
 <mat-label>Entrer la périodicité</mat-label>
-<input matInput>
+<mat-select formControlName ="periodicite">
+  <mat-option *ngFor="let periode of periodicites"
+    [value]="periode" >
+    {{periode}}
+  </mat-option>
+</mat-select>
 </mat-form-field>
 
 

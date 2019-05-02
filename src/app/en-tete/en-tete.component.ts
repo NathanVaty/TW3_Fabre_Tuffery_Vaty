@@ -131,14 +131,40 @@ export class AdminConnect {
   selector: 'dialog-recherche',
   templateUrl: 'dialogRecherche.html',
 })
-export class DialogRecherche {
+export class DialogRecherche implements OnInit {
+  mois;
+  region;
+  departements;
+  domaines;
+  angForm: FormGroup;
 
-  constructor(
-    public dialogRef: MatDialogRef<DialogRecherche>
-  ){}
+  constructor(private fb: FormBuilder,
+    public dialogRef: MatDialogRef<DialogRecherche>,
+    private info: InfoUtileService
+  ){
+    this.createForm();
+  }
+
+  createForm() {
+   this.angForm = this.fb.group({
+     nom: [''],
+     ville: [''],
+     region:[''],
+     departement: [''],
+     domaine: [''],
+     mois_habituel_de_debut: ['']
+   });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  ngOnInit(){
+    this.mois = this.info.getMois();
+    this.region = this.info.getRegion();
+    this.departements = this.info.getDepartement();
+    this.domaines = this.info.getDomaine();
   }
 
 }
