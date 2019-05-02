@@ -28,6 +28,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
  import {MatNativeDateModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import { LoginService } from './login.service';
+import { InfoUtileService } from './info-utile.service';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import { LoginService } from './login.service';
       ChartsModule
   ],
   entryComponents: [AdminConnect, DialogRecherche, AjoutFestival],
-  providers: [ManipDonneesService,LoginService],
+  providers: [ManipDonneesService,LoginService,InfoUtileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

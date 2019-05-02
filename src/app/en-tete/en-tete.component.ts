@@ -4,11 +4,13 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { LoginService } from '../login.service';
+import { InfoUtileService } from '../info-utile.service';
+
 
 export interface AdminConnectData {
   ndc: string;
   mdp: string;
-}
+};
 
 
 @Component({
@@ -18,50 +20,17 @@ export interface AdminConnectData {
 })
 export class EnTeteComponent implements OnInit  {
 
-  mois  =[
-    '',
-    '01 (janvier)',
-    '02 (février)',
-    '03 (mars)',
-    '04 (avril)',
-    '05 (mai)',
-    '06 (juin)',
-    '07 (juillet)',
-    '08 (août)',
-    '09 (septembre)',
-    '10 (octobre)',
-    '11 (novembre)',
-    '12 (décembre)'
-  ];
+  mois;
 
-  region =[
-    '',
-    'Auvergne-Rhône-Alpes',
-    'Bougogne-Franche-Comté',
-    'Bretagne',
-    'Centre-Val de Loire',
-    'Corse',
-    'Grand Est',
-    'Guadeloupe',
-    'Guyane',
-    'Hauts-de-France',
-    'Île-de-France',
-    'Martinique',
-    'Mayotte',
-    'Normandie',
-    'Nouvelle-Aquitaine',
-    'Occitanie',
-    'Pays de la Loire',
-    'Provence-Alpes-Côte d Azur',
-    'La Réunion'
-  ];
+  region;
 
   ndc: string;
   mdp: string;
   connect; // Variable False => invite True => Admin
 
   constructor(public dialog: MatDialog,
-              private login: LoginService) { }
+              private login: LoginService,
+              private info: InfoUtileService) { }
 
 
   //======AJOUTER UN FESTIVAL================
@@ -96,6 +65,8 @@ export class EnTeteComponent implements OnInit  {
     this.login.adminSub.subscribe((value) => {
       this.connect = value;
     });
+    this.mois = this.info.getMois();
+    this.region = this.info.getRegion();
   }
 
 
@@ -176,25 +147,46 @@ export class DialogRecherche {
   selector: 'ajout-festival',
   templateUrl: 'ajoutFestival.html',
 })
-export class AjoutFestival {
+export class AjoutFestival implements OnInit {
 
   formAjout: FormGroup;
-
+  mois;
+  region;
+  departement;
+  domaines;
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<AjoutFestival>){
+    public dialogRef: MatDialogRef<AjoutFestival>,
+    private info: InfoUtileService){
       this.formAjout = this.fb.group({
+        code_insee: ['', Validators.required],
         nom_de_la_manifestation:['', Validators.required],
         commune_principale:['', Validators.required],
         code_postal:['', Validators.required],
         nom_departement:['', Validators.required],
-        complement_domaine:['', Validators.required],
-        date_de_creation:['', Validators.required],
-        site_web:['', Validators.required],
-        code_insee:['', Validators.required],
+        region: ['', Validators.required],
+        domaine: ['', Validators.required],
+        mois_habituel_de_debut: ['', Validators.required],
+        complement_domaine:['', ],
+        date_de_creation:[new Date(), Validators.required],
+        date_de_debut: [new Date(),Validators.required],
+        date_de_fin: [new Date(),Validators.required],
+        site_web:['', ],
+        periodicite: ['',Validators.required],
         coordonnees_insee_x:['',Validators.required],
         coordonnees_insee_y:['', Validators.required],
       });
+    }
+
+    ngOnInit(){
+      this.mois = this.info.getMois();
+      this.region = this.info.getRegion();
+      this.departement = this.info.getDepartement();
+      this.domaines = this.info.getDomaine();
+    }
+
+    onSubmit() {
+      alert(JSON.stringify(formAjout.value));
     }
 
 }
