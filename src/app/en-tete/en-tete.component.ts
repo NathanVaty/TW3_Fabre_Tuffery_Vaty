@@ -186,7 +186,7 @@ export class AjoutFestival implements OnInit {
     }
 
     onSubmit() {
-      alert(JSON.stringify(formAjout.value));
+      alert(JSON.stringify(this.formAjout.value));
     }
 
 }

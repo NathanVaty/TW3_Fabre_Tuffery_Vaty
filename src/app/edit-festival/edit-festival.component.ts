@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { InfoUtileService } from '../info-utile.service';
 
 @Component({
   selector: 'app-edit-festival',
@@ -8,21 +9,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 })
 export class EditFestivalComponent implements OnInit {
 
-  mois  =[
-    '',
-    '01 (janvier)',
-    '02 (février)',
-    '03 (mars)',
-    '04 (avril)',
-    '05 (mai)',
-    '06 (juin)',
-    '07 (juillet)',
-    '08 (août)',
-    '09 (septembre)',
-    '10 (octobre)',
-    '11 (novembre)',
-    '12 (décembre)'
-  ];
+  lesMois : mois;
 
   region =[
     '',
@@ -62,6 +49,7 @@ export class EditFestivalComponent implements OnInit {
 
 
   ngOnInit() {
+    this.getMois();
   }
 
 }
