@@ -1,6 +1,5 @@
 <h1 mat-dialog-title>Ajouter un festival</h1>
 <form>
-<div class="example-container">
 
 <h4>
 Code INSEE :
@@ -47,7 +46,12 @@ Région :
 </h4>
 <mat-form-field>
 <mat-label>Entrer la région</mat-label>
-<input matInput>
+<mat-select formControlName ="region-festival">
+  <mat-option *ngFor="let uneRegion of region"
+    [value]="uneRegion" >
+    {{uneRegion}}
+  </mat-option>
+</mat-select>
 </mat-form-field>
 
 
@@ -76,10 +80,10 @@ Domaine :
 </mat-form-field>
 
 <h4>
-Complement domaine:
+Complément domaine:
 </h4>
 <mat-form-field>
-<mat-label>Entrer le complement</mat-label>
+<mat-label>Entrer le complément</mat-label>
 <textarea matInput placeholder="Textarea"></textarea>
 </mat-form-field>
 
@@ -145,6 +149,5 @@ Site Internet :
   <button mat-raised-button>Annuler</button>
   <button mat-raised-button>Ajouter</button>
 
-</div>
 </div>
 </form>
