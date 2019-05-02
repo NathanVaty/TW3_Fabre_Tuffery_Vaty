@@ -1,11 +1,26 @@
-<div>
-  <div class="chartDiv" style="display: block">
-    <canvas baseChart
-            [data]="pieChartData"
-            [labels]="pieChartLabels"
-            [chartType]="pieChartType"></canvas>
-  </div>
-  <div>
-      <p> Insert form </p>
-  </div>
+<div class="chartDiv" style="display: block">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas>
 </div>
+  <div>
+    <form [formGroup] = "formStat" (ngSubmit) = "onSubmit()">
+    <mat-form-field>
+      <mat-label>choisir le domaine</mat-label>
+      <mat-select formControlName ="typeStat">
+        <mat-option [value]="musique" > type de musique
+        </mat-option>
+        <mat-option [value]="dept" > departement
+        </mat-option>
+        <mat-option [value]="moisDeb"> Mois de début
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+      <button mat-raised-button>Valider</button>
+    </form>
+  </div>
