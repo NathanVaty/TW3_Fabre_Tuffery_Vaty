@@ -52,8 +52,8 @@ export class EnTeteComponent implements OnInit  {
   rechercheAvancee(): void {
     console.log("Dialog recherche open");
       const dialogRef = this.dialog.open(DialogRecherche, {
-      width: '400px',
-      height:'400px'
+      width: '500px',
+      height:'600px'
     });
     /* Lors de la fermeture de la page */
     dialogRef.afterClosed().subscribe(result => {
