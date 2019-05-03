@@ -1,12 +1,12 @@
 <h1 mat-dialog-title>Rechercher un festival</h1>
-<form>
+<form [formGroup] = "angForm" (ngSubmit) = "onSubmit()">
 <h4>
 Nom :
 </h4>
-<div class="example-container">
+
   <mat-form-field>
   <mat-label>Entrer le nom du festival</mat-label>
-  <input matInput>
+  <input matInput formControlName ="nom_de_la_manifestation">
   </mat-form-field>
 
   <h4>
@@ -14,7 +14,7 @@ Nom :
   </h4>
     <mat-form-field>
     <mat-label>Entrer la ville</mat-label>
-    <input matInput>
+    <input matInput formControlName ="commune_principale">
   </mat-form-field>
 
   <h4>
@@ -73,6 +73,5 @@ Mois Début
   <button mat-raised-button>Annuler</button>
   <button mat-raised-button>Valider</button>
 
-</div>
 </div>
 </form>

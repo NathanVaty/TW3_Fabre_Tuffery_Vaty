@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Observable } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators , FormControl} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { LoginService } from '../login.service';
 import { InfoUtileService } from '../info-utile.service';
@@ -137,6 +137,7 @@ export class DialogRecherche implements OnInit {
   departements;
   domaines;
   angForm: FormGroup;
+  formCt = new FormControl('',[]);
 
   constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogRecherche>,
@@ -147,12 +148,13 @@ export class DialogRecherche implements OnInit {
 
   createForm() {
    this.angForm = this.fb.group({
-     nom: [''],
-     ville: [''],
+     nom_de_la_manifestation: [''],
+     commune_principale: [''],
      region:[''],
-     departement: [''],
+     nom_departement: [''],
      domaine: [''],
      mois_habituel_de_debut: ['']
+
    });
   }
 
