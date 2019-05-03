@@ -207,7 +207,7 @@ export class AjoutFestival implements OnInit {
         date_de_debut: [{},Validators.required],
         date_de_fin: [{},Validators.required],
         site_web:['', ],
-        periodicite: ['',Validators.required],
+        periodicite: ['',],
         coordonnees_insee_x:['',Validators.required],
         coordonnees_insee_y:['', Validators.required],
         commentaires: ['', ]

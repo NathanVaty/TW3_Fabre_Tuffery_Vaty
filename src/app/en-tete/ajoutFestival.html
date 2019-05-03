@@ -7,7 +7,7 @@ Code INSEE :
 </h4>
 <mat-form-field>
 <mat-label>Entrer le code INSEE</mat-label>
-<input matInput formControlName="code_insee">
+<input matInput formControlName="code_insee" required>
 </mat-form-field>
 
 <h4>
@@ -15,7 +15,7 @@ Nom :
 </h4>
 <mat-form-field>
 <mat-label>Entrer le nom du festival</mat-label>
-<input matInput formControlName="nom_de_la_manifestation">
+<input matInput formControlName="nom_de_la_manifestation" required>
 </mat-form-field>
 
 <h4>
@@ -31,14 +31,14 @@ Ville:
 </h4>
   <mat-form-field>
   <mat-label>Entrer la ville</mat-label>
-  <input matInput formControlName="commune_principale">
+  <input matInput formControlName="commune_principale" required>
 </mat-form-field>
 
 <h4>
 Code Postal:
 </h4>
 <mat-form-field>
-<input matInput #postalCode maxlength="5" placeholder="Code Postal" formControlName="code_postal">
+<input matInput #postalCode maxlength="5" placeholder="Code Postal" formControlName="code_postal" required>
 <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
 </mat-form-field>
 
@@ -47,7 +47,7 @@ Département :
 </h4>
 <mat-form-field>
 <mat-label>Choisir le département</mat-label>
-<mat-select formControlName ="nom_departement">
+<mat-select formControlName ="nom_departement" required>
   <mat-option *ngFor="let unDep of departements"
     [value]="unDep" >
     {{unDep.nom}}
@@ -60,7 +60,7 @@ Région :
 </h4>
 <mat-form-field>
 <mat-label>Choisir la région</mat-label>
-<mat-select formControlName ="region">
+<mat-select formControlName ="region" required>
   <mat-option *ngFor="let uneRegion of region"
     [value]="uneRegion" >
     {{uneRegion}}
@@ -73,10 +73,10 @@ Région :
 Coordonnées INSEE :
 </h4>
 <mat-form-field>
-<input type="number" matInput placeholder="x" formControlName="coordonnees_insee_x">
+<input type="number" matInput placeholder="x" formControlName="coordonnees_insee_x" required>
 </mat-form-field>
 <mat-form-field>
-<input type="number" matInput placeholder="y" formControlName="coordonnees_insee_y">
+<input type="number" matInput placeholder="y" formControlName="coordonnees_insee_y" required>
 </mat-form-field>
 
 
@@ -85,7 +85,7 @@ Domaine :
 </h4>
 <mat-form-field>
 <mat-label>Entrer le domaine</mat-label>
-<mat-select formControlName ="domaine">
+<mat-select formControlName ="domaine" required>
   <mat-option *ngFor="let domaine of domaines"
     [value]="domaine" >
     {{domaine}}
@@ -106,7 +106,7 @@ Date Création :
 </h4>
 <mat-form-field>
 <input matInput [matDatepicker]="dateCreat" placeholder="Choisir une date"
-formControlName="date_de_creation">
+formControlName="date_de_creation" required>
   <mat-datepicker-toggle matSuffix [for]="dateCreat"></mat-datepicker-toggle>
   <mat-datepicker #dateCreat></mat-datepicker>
 </mat-form-field>
@@ -116,7 +116,7 @@ Date Début :
 </h4>
 <mat-form-field>
 <input matInput [matDatepicker]="dateDeb" placeholder="Choisir une date"
-  formControlName="date_de_debut">
+  formControlName="date_de_debut" required>
   <mat-datepicker-toggle matSuffix [for]="dateDeb"></mat-datepicker-toggle>
   <mat-datepicker #dateDeb></mat-datepicker>
 </mat-form-field>
@@ -126,7 +126,7 @@ Date Fin :
 </h4>
 <mat-form-field>
 <input matInput [matDatepicker]="dateFin" placeholder="Choisir une date"
-  formControlName="date_de_fin" >
+  formControlName="date_de_fin" required >
   <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
   <mat-datepicker #dateFin></mat-datepicker>
 </mat-form-field>
@@ -136,7 +136,7 @@ Mois Début
 </h4>
 <mat-form-field>
 <mat-label>choisir le mois</mat-label>
-<mat-select formControlName ="mois_habituel_de_debut">
+<mat-select formControlName ="mois_habituel_de_debut" required>
   <mat-option *ngFor="let unMois of mois"
     [value]="unMois" >
     {{unMois}}
