@@ -133,6 +133,51 @@ export class ManipDonneesService {
     });
   }
 
+
+  rechercheAvancee(data) {
+    let tab = [];
+    async function getD() {
+      let campaignsRef: Query = firebase.firestore().collection('festivals');
+      for (let champs of Object.keys(data)) {
+        if (data[champs] != "" && data[champs] != null) {
+          switch(champs) {
+            case 'nom_de_la_manifestation':
+            case 'commune_principale':
+            case 'region':
+            case 'domaine':
+            case 'mois_habituel_de_debut':
+            campaignsRef = campaignsRef.where(champs,"==",data[champs]);
+            break;
+            case 'departement':
+            if (data[champs].num != ''){
+              campaignsRef = campaignsRef.where('departement',"==",data[champs].num);
+            }
+            break;
+          }
+
+        }
+      }
+      let activeRef = await campaignsRef.get();
+      for (var campaign of activeRef.docs) {
+        tab.push(campaign.data());
+      }
+    }
+
+    return new Promise((resolve,reject) => {
+      try {
+        getD().then(() => {
+          resolve(tab);
+          this.tabD = tab;
+          this.emitTab();
+        });
+      } catch(err) {
+        reject([]);
+      }
+    });
+  }
+
+
+
   ajoutFestival(data) {
     let unFestival: InfoFestival;
     for (let champs of Object.keys(data)){
