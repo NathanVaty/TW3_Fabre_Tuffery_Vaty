@@ -31,7 +31,7 @@ export class ManipDonneesService {
   commentaires: string;
   commune_principale: string;
   complement_domaine: string;
-  coordonnees_insee: number[];
+  coordonnees_insee: number[] = [0,0];
   date_de_creation: string;
   date_de_debut: string;
   date_de_fin: string;
@@ -39,9 +39,7 @@ export class ManipDonneesService {
   domaine: string;
   libelle_commune_pour_calcul_cp_insee: string;
   mois_habituel_de_debut: string;
-  mois_indicatif_en_chiffre_y_compris_double_mois: string;
-  ndeg_de_l_edition_2019: number;
-  ndeg_identification: string;
+  mois_indicatif_en_chiffre_y_compris_double_mois: number;
   nom_de_la_manifestation: string;
   nom_departement: string;
   periodicite: string;
@@ -136,65 +134,95 @@ export class ManipDonneesService {
   }
 
   ajoutFestival(data) {
-    // "fields": {"departement": "51", "code_postal": "51220", "mois_habituel_de_debut": "03 (mars)",
-    // "mois_indicatif_en_chiffre_y_compris_double_mois": 3.0,
-    // "commune_principale": "COURCY", "date_de_creation": "2010-01-01",
-    // "region": "Grand Est", "nom_departement": "Marne",
-    // "domaine": "Musiques actuelles", "ndeg_de_l_edition_2019": 10.0,
-    // "date_de_debut": "2019-03-08", "code_insee": "51183", "nom_de_la_manifestation":
-    // "COURZIK FESTIVAL", "ndeg_identification": "FD018", "site_web": "http://www.courzik.fr/",
-    // "date_de_fin": "2019-03-10",
-    // "commentaires": "10\u00e8me \u00e9dition.
-    //   Le COURZIK' Festival vous propose deux soir\u00e9es de concerts les vendredi 08 et samedi 09 mars et un concert jeune public le dimanche 10 mars.",
-    //   "periodicite": "Annuelle", "libelle_commune_pour_calcul_cp_insee":
-    //   "COURCY", "coordonnees_insee": [49.3196081983, 4.0061261454],
-    //   "complement_domaine": "Musiques amplifi\u00e9es ou \u00e9lectroniques"},
-    //   "geometry": {"type": "Point", "coordinates": [4.0061261454, 49.3196081983]}
-
     let unFestival: InfoFestival;
     for (let champs of Object.keys(data)){
-      console.log(champs);
-      console.log(data[champs]);
       switch(champs) {
-        case "code_insee": unFestival['fields'].code_insee = data[champs];
+        case "code_insee": this.code_insee = data[champs];
         break;
-        case "code_postal": unFestival.fields.code_postal = data[champs];
+        case "code_postal": this.code_postal = data[champs];
         break;
-        case "commune_principale": unFestival.fields.commune_principale = data[champs];
-                  unFestival.fields.libelle_commune_pour_calcul_cp_insee = data[champs];
+        case "commune_principale": this.commune_principale = data[champs];
+        this.libelle_commune_pour_calcul_cp_insee = data[champs];
         break;
-        case "complement_domaine": unFestival.fields.complement_domaine = data[champs];
+        case "complement_domaine": this.complement_domaine = data[champs];
         break;
-        case "coordonnees_insee_x": unFestival.fields.coordonnees_insee[0] = data[champs];
+        case "coordonnees_insee_x": this.coordonnees_insee[0] = data[champs];
         break;
-        case "coordonnees_insee_y": unFestival.fields.coordonnees_insee[1] = data[champs];
+        case "coordonnees_insee_y": this.coordonnees_insee[1] = data[champs];
         break;
-        case "date_de_creation": unFestival.fields.date_de_creation = data[champs];
+        case "date_de_creation": this.date_de_creation = data[champs]._i.year + "-"
+        + ((data[champs]._i.month + 1) < 10? "0"+(data[champs]._i.month + 1) + "-"
+        :(data[champs]._i.month + 1) + "-")
+        + ((data[champs]._i.date + 1) < 10? "0"+(data[champs]._i.date + 1)
+        :(data[champs]._i.date + 1) );
         break;
-        case "date_de_debut": unFestival.fields.date_de_debut = data[champs];
+        case "date_de_debut": this.date_de_debut = data[champs]._i.year + "-"
+        + ((data[champs]._i.month + 1) < 10? "0"+(data[champs]._i.month + 1) + "-"
+        :(data[champs]._i.month + 1) + "-")
+        + ((data[champs]._i.date + 1) < 10? "0"+(data[champs]._i.date + 1)
+        :(data[champs]._i.date + 1) );
         break;
-        case "date_de_fin": unFestival.fields.date_de_fin = data[champs];
+        case "date_de_fin": this.date_de_fin = data[champs]._i.year + "-"
+        + ((data[champs]._i.month + 1) < 10? "0"+(data[champs]._i.month + 1) + "-"
+        :(data[champs]._i.month + 1) + "-")
+        + ((data[champs]._i.date + 1) < 10? "0"+(data[champs]._i.date + 1)
+        :(data[champs]._i.date + 1) );
         break;
-        case "departement": unFestival.fields.departement = data[champs].num;
-                            unFestival.fields.nom_departement = data[champs].nom;
+        case "nom_departement": this.departement = data[champs].num;
+        this.nom_departement = data[champs].nom;
         break;
-        case "domaine": unFestival.fields.domaine = data[champs];
+        case "domaine": this.domaine = data[champs];
         break;
-        case "mois_habituel_de_debut": unFestival.fields.mois_habituel_de_debut = data[champs];
-        unFestival.fields.mois_indicatif_en_chiffre_y_compris_double_mois = data[champs];
+        case "mois_habituel_de_debut": this.mois_habituel_de_debut = data[champs];
+        this.mois_indicatif_en_chiffre_y_compris_double_mois = parseInt(data[champs],10);
         break;
-        case "nom_de_la_manifestation": unFestival.fields.nom_de_la_manifestation = data[champs];
+        case "nom_de_la_manifestation": this.nom_de_la_manifestation = data[champs];
         break;
-        case "periodicite": unFestival.fields.periodicite = data[champs];
+        case "periodicite": this.periodicite = data[champs];
         break;
-        case "region": unFestival.fields.region = data[champs];
+        case "region": this.region = data[champs];
         break;
-        case "site_web": unFestival.fields.site_web = data[champs];
+        case "site_web": this.site_web = data[champs];
         break;
+        case "commentaires": this.commentaires = data[champs];
+        break;
+
       }
     }
-
+    unFestival = {
+        code_insee: this.code_insee,
+        code_postal: this.code_postal,
+        commentaires: this.commentaires,
+        commune_principale: this.commune_principale,
+        complement_domaine: this.complement_domaine,
+        coordonnees_insee: this.coordonnees_insee,
+        date_de_creation: this.date_de_creation,
+        date_de_debut: this.date_de_debut,
+        date_de_fin: this.date_de_fin,
+        departement: this.departement,
+        domaine: this.domaine,
+        libelle_commune_pour_calcul_cp_insee: this.libelle_commune_pour_calcul_cp_insee,
+        mois_habituel_de_debut: this.mois_habituel_de_debut,
+        mois_indicatif_en_chiffre_y_compris_double_mois: this.mois_indicatif_en_chiffre_y_compris_double_mois,
+        nom_de_la_manifestation: this.nom_de_la_manifestation,
+        nom_departement: this.nom_departement,
+        periodicite: this.periodicite,
+        region: this.region,
+        site_web: this.site_web
+    }
     console.log(unFestival);
+    async function upload(data) {
+      //console.log(path.join(''));
+      return await firebase.firestore()
+      .collection('festivals')
+      .add(data)
+      .then(() => alert('festival ajouté'))
+      .catch(() => alert("erreur ajout"));
+    }
+
+    upload(unFestival);
+    this.tabD.push(unFestival);
+    this.emitTab();
   }
 
 }

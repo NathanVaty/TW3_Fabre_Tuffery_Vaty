@@ -7,6 +7,8 @@ import { LoginService } from '../login.service';
 import { InfoUtileService } from '../info-utile.service';
 import {ManipDonneesService} from '../manip-donnees.service';
 
+import { InfoFestival } from '../Infofest';
+
 export interface AdminConnectData {
   ndc: string;
   mdp: string;
@@ -181,6 +183,9 @@ export class AjoutFestival implements OnInit {
   departements;
   domaines;
   periodicites;
+  annuler = false;
+
+  festi: InfoFestival;
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AjoutFestival>,
@@ -196,13 +201,14 @@ export class AjoutFestival implements OnInit {
         domaine: ['', Validators.required],
         mois_habituel_de_debut: ['', Validators.required],
         complement_domaine:['', ],
-        date_de_creation:[new Date(), Validators.required],
-        date_de_debut: [new Date(),Validators.required],
-        date_de_fin: [new Date(),Validators.required],
+        date_de_creation:[{}, Validators.required],
+        date_de_debut: [{},Validators.required],
+        date_de_fin: [{},Validators.required],
         site_web:['', ],
         periodicite: ['',Validators.required],
         coordonnees_insee_x:['',Validators.required],
         coordonnees_insee_y:['', Validators.required],
+        commentaires: ['', ]
       });
     }
 
@@ -215,8 +221,16 @@ export class AjoutFestival implements OnInit {
     }
 
     onSubmit() {
-      alert(JSON.stringify(this.formAjout.value));
-      this.bd.ajoutFestival(this.formAjout.value);
+      if(this.annuler == false) {
+        this.bd.ajoutFestival(this.formAjout.value);
+      }
+      this.annuler = false;
+      this.dialogRef.close();
+
+    }
+    onNoClick(): void {
+      this.annuler = true;
+      this.dialogRef.close();
     }
 
 }

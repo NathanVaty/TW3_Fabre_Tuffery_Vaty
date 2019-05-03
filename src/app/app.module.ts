@@ -30,6 +30,22 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ChartsModule } from 'ng2-charts';
 import { LoginService } from './login.service';
 import { InfoUtileService } from './info-utile.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+ 
+
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -66,7 +82,11 @@ import { InfoUtileService } from './info-utile.service';
       ChartsModule
   ],
   entryComponents: [AdminConnect, DialogRecherche, AjoutFestival,ConfirmationSupprimer],
-  providers: [ManipDonneesService,LoginService, InfoUtileService],
+  providers: [ManipDonneesService,LoginService, InfoUtileService,
+    { provide: MAT_DATE_LOCALE, useValue: 'fr' }, //you can change useValue
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

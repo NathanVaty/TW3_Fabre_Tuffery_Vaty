@@ -19,6 +19,14 @@ Nom :
 </mat-form-field>
 
 <h4>
+Commentaires sur le festival :
+</h4>
+<mat-form-field>
+<mat-label>Entrer un commentaire</mat-label>
+<input matInput formControlName="commentaires">
+</mat-form-field>
+
+<h4>
 Ville:
 </h4>
   <mat-form-field>
@@ -118,7 +126,7 @@ Date Fin :
 </h4>
 <mat-form-field>
 <input matInput [matDatepicker]="dateFin" placeholder="Choisir une date"
-  formControlName="date_de_fin">
+  formControlName="date_de_fin" >
   <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
   <mat-datepicker #dateFin></mat-datepicker>
 </mat-form-field>
@@ -160,7 +168,7 @@ Site Internet :
 
 
 <div>
-  <button mat-raised-button>Annuler</button>
+  <button mat-raised-button (click)="onNoClick()">Annuler</button>
   <button mat-raised-button [disabled]="formAjout.pristine || formAjout.invalid">Ajouter</button>
 
 </div>

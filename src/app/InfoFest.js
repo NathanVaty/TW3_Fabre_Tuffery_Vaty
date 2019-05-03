@@ -1,5 +1,4 @@
 export class InfoFestival {
-  fields: {
     code_insee: string;
     code_postal: string;
     commune_principale: string;
@@ -18,5 +17,4 @@ export class InfoFestival {
     periodicite: string;
     region: string;
     site_web: string;
-  }
 }
