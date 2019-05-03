@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators , FormControl} from '@angular/forms'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { LoginService } from '../login.service';
 import { InfoUtileService } from '../info-utile.service';
-
+import {ManipDonneesService} from '../manip-donnees.service';
 
 export interface AdminConnectData {
   ndc: string;
@@ -186,7 +186,8 @@ export class AjoutFestival implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AjoutFestival>,
-    private info: InfoUtileService){
+    private info: InfoUtileService,
+    private bd: ManipDonneesService){
       this.formAjout = this.fb.group({
         code_insee: ['', Validators.required],
         nom_de_la_manifestation:['', Validators.required],
@@ -217,6 +218,7 @@ export class AjoutFestival implements OnInit {
 
     onSubmit() {
       alert(JSON.stringify(this.formAjout.value));
+      this.bd.ajoutFestival(this.formAjout.value);
     }
 
 }

@@ -16,6 +16,7 @@ export class LoginService {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
+      alert("mot de passe invalide");
     }
     this.emitAdmin();
   }
