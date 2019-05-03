@@ -11,12 +11,9 @@
     <form [formGroup] = "formStat" (ngSubmit) = "onSubmit()">
     <mat-form-field>
       <mat-label>choisir le domaine</mat-label>
-      <mat-select formControlName ="typeStat">
-        <mat-option [value]="musique" > type de musique
-        </mat-option>
-        <mat-option [value]="dept" > departement
-        </mat-option>
-        <mat-option [value]="moisDeb"> Mois de début
+      <mat-select formControlName ="selectStat">
+        <mat-option *ngFor="let stat of typeStat" [value]="stat.value">
+          {{stat.viewValue}}
         </mat-option>
       </mat-select>
     </mat-form-field>
