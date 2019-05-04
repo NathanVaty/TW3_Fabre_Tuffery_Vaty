@@ -1,4 +1,4 @@
-<div class="chartDiv" style="display: block">
+<div class="chartDiv" style="display: block" *ngIf="barChartData != null">
       <canvas baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"
@@ -7,6 +7,7 @@
               [chartType]="barChartType">
       </canvas>
 </div>
+<div></div>
   <div>
     <form [formGroup] = "formStat" (ngSubmit) = "onSubmit()">
     <mat-form-field>
