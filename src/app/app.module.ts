@@ -34,7 +34,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 export const MY_FORMATS = {
@@ -81,7 +81,8 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-      ChartsModule
+    ChartsModule,
+    MatTabsModule
   ],
   entryComponents: [AdminConnect, DialogRecherche, AjoutFestival,ConfirmationSupprimer],
   providers: [ManipDonneesService,LoginService, InfoUtileService,
