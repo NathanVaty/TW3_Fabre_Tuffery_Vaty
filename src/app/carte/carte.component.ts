@@ -99,5 +99,34 @@ export class CarteComponent implements OnInit {
       mapFestival.addLayer(this.marqueurs);
 
     });
+
+    festivalList = this.bd.tabD;
+    if (festivalList != undefined && festivalList.length != 0) {
+      /* Création d'un marqueur */
+      const myMark = L.icon({
+        iconUrl :'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
+      });
+
+      this.marqueurs.clearLayers();
+
+
+      /* Pour chaque festival on ajoute un marqueur */
+      for (let festival of festivalList){
+        let texteFest = "Nom: " + festival.nom_de_la_manifestation + "<br>"
+                    + "Début: " + festival.date_de_debut + "<br>"
+                    + "Fin: " + festival.date_de_fin + "<br>";
+                    texteFest = (festival.site_web != null && festival.site_web != "") ?
+                      texteFest + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>" :  texteFest;
+                    texteFest = this.connect ?
+                  texteFest + "<a href='/modif/"+ festival.code_insee + "'>Modifier/Supprimer</a>"
+                    : texteFest;
+        /* Création de variable pour le marqueur */
+        /* Affichage des marqueur */
+          L.marker([festival.coordonnees_insee[0], festival.coordonnees_insee[1]], {icon: myMark})
+          .bindPopup(texteFest)
+          .addTo(this.marqueurs);
+      }
+      mapFestival.addLayer(this.marqueurs);
+    }
   }
 }

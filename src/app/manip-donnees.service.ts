@@ -22,7 +22,7 @@ const config = {
 export class ManipDonneesService {
   private ref;
 
-  private tabD;
+  tabD;
   tabDSub = new Subject();
 
   unFestival;
