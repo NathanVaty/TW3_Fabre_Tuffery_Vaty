@@ -32,7 +32,8 @@ import { LoginService } from './login.service';
 import { InfoUtileService } from './info-utile.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
- 
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 export const MY_FORMATS = {
@@ -79,7 +80,8 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-      ChartsModule
+    ChartsModule,
+    MatTabsModule
   ],
   entryComponents: [AdminConnect, DialogRecherche, AjoutFestival,ConfirmationSupprimer],
   providers: [ManipDonneesService,LoginService, InfoUtileService,
