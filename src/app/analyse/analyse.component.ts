@@ -25,11 +25,11 @@ export class AnalyseComponent implements OnInit {
  ];
 
    // modifier le param pour qu'il vienne du formulaire
-    public barChartLabels = this.addDataIntoLabelsBarParam('musique');
+    public barChartLabels = this.addDataIntoLabelsBarParam('dept');
     public barChartType = 'bar';
     public barChartLegend = true;
     public barChartData = [
-      {data:this.countDataBarParam('musique'),label:this.getTypeData('musique')}
+      {data:this.countDataBarParam('dept'),label:this.getTypeData('dept')}
     ];
     public barChartOptions = {
       scaleShowVerticalLines: false,
@@ -44,7 +44,7 @@ export class AnalyseComponent implements OnInit {
          responsive: true
     };
 
-  constructor(private bd: ManipDonneesService, private fb: FormBuilder, private analyse: AnalyseService) {
+  constructor(private bd: ManipDonneesService, private fb: FormBuilder) {
     this.createForm();
   }
 
