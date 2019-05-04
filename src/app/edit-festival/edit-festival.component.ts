@@ -75,6 +75,10 @@ export class EditFestivalComponent implements OnInit {
       return val;
     }
   }
+  retour() {
+    this.toSupp = true;
+    this.goback.navigate(['','']);
+  }
   onSubmit(){
     if(this.toSupp == false) {
       this.formModif.get('date_de_creation').setValue(this.formatDate(this.formModif.value['date_de_creation']));
