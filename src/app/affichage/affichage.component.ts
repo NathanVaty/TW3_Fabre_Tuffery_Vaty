@@ -11,8 +11,9 @@ export class AffichageComponent implements OnInit {
   constructor(private bd: ManipDonneesService) { }
 
   ngOnInit() {
-    var p = this.bd.getDonnees();
-    console.log(p);
+    //var p = this.bd.getDonnees();
+    //console.log(p);
+    this.bd.emitTab();
   }
 
 }

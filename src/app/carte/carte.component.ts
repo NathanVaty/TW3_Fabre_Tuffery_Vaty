@@ -18,10 +18,10 @@ export class CarteComponent implements OnInit {
   connect;
   constructor(private bd: ManipDonneesService,
               private login: LoginService) {
-    console.log("carte component");
   }
 
   ngOnInit() {
+
     /* Création de la carte */
     /* Coordonnée sur un zoom de la france */
     var mapFestival = L.map('mapId').setView([47.391, 1.000],5);
@@ -47,7 +47,7 @@ export class CarteComponent implements OnInit {
                     + "Début: " + festival.date_de_debut + "<br>"
                     + "Fin: " + festival.date_de_fin + "<br>";
                     texteFest = (festival.site_web != null && festival.site_web != "") ?
-                      texteFest + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank>'" + festival.site_web + "</a><br>" :  texteFest;
+                      texteFest + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>" :  texteFest;
                     texteFest = this.connect ?
                   texteFest + "<a href='/modif/"+ festival.code_insee + "'>Modifier/Supprimer</a>"
                     : texteFest;
