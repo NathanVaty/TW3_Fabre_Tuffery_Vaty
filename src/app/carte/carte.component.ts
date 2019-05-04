@@ -18,10 +18,10 @@ export class CarteComponent implements OnInit {
   connect;
   constructor(private bd: ManipDonneesService,
               private login: LoginService) {
-    console.log("carte component");
   }
 
   ngOnInit() {
+
     /* Création de la carte */
     /* Coordonnée sur un zoom de la france */
     var mapFestival = L.map('mapId').setView([47.391, 1.000],5);
@@ -45,10 +45,11 @@ export class CarteComponent implements OnInit {
       for (let festival of festivalList){
         let texteFest = "Nom: " + festival.nom_de_la_manifestation + "<br>"
                     + "Début: " + festival.date_de_debut + "<br>"
-                    + "Date de création: " + festival.date_de_creation + "<br>"
-                    + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>";
+                    + "Fin: " + festival.date_de_fin + "<br>";
+                    texteFest = (festival.site_web != null && festival.site_web != "") ?
+                      texteFest + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>" :  texteFest;
                     texteFest = this.connect ?
-                    texteFest + "<a href='/modif/"+ festival.code_insee + "' target='_blank'>Modifier/Supprimer</a>"
+                  texteFest + "<a href='/modif/"+ festival.code_insee + "'>Modifier/Supprimer</a>"
                     : texteFest;
 
         /* Création de variable pour le marqueur */
@@ -83,10 +84,11 @@ export class CarteComponent implements OnInit {
       for (let festival of festivalList){
         let texteFest = "Nom: " + festival.nom_de_la_manifestation + "<br>"
                     + "Début: " + festival.date_de_debut + "<br>"
-                    + "Date de création: " + festival.date_de_creation + "<br>"
-                    + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>";
+                    + "Fin: " + festival.date_de_fin + "<br>";
+                    texteFest = (festival.site_web != null && festival.site_web != "") ?
+                      texteFest + "Site web: " + "<a href='"+ festival.site_web + "' target='_blank'>" + festival.site_web + "</a><br>" :  texteFest;
                     texteFest = this.connect ?
-                  texteFest + "<a href='/modif/'"+ festival.code_insee + "' target='_blank'>Modifier/Supprimer</a>"
+                  texteFest + "<a href='/modif/"+ festival.code_insee + "'>Modifier/Supprimer</a>"
                     : texteFest;
         /* Création de variable pour le marqueur */
         /* Affichage des marqueur */
@@ -97,9 +99,5 @@ export class CarteComponent implements OnInit {
       mapFestival.addLayer(this.marqueurs);
 
     });
-  }
-
-  dab(){
-    console.log("dab");
   }
 }

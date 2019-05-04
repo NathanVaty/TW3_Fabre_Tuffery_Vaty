@@ -1,26 +1,37 @@
 <h1 mat-dialog-title>Modifier un festival</h1>
-<form>
+<form [formGroup]="formModif" (ngSubmit)="onSubmit()">
+
+
 <h4>
 Nom :
 </h4>
-  <mat-form-field>
-  <mat-label>Entrer le nom du festival</mat-label>
-  <input matInput>
-  </mat-form-field>
+<mat-form-field>
+<mat-label>Entrer le nom du festival</mat-label>
+<input matInput formControlName="nom_de_la_manifestation" [ngModel]="festival.nom_de_la_manifestation">
+</mat-form-field>
+
+<h4>
+Commentaires sur le festival :
+</h4>
+<mat-form-field>
+<mat-label>Entrer un commentaire</mat-label>
+<input matInput formControlName="commentaires" [ngModel]="festival.commentaires">
+</mat-form-field>
 
 <h4>
 Ville:
 </h4>
   <mat-form-field>
   <mat-label>Entrer la ville</mat-label>
-  <input matInput>
+  <input matInput formControlName="commune_principale" [ngModel]="festival.commune_principale">
 </mat-form-field>
 
 <h4>
 Code Postal:
 </h4>
 <mat-form-field>
-<input matInput #postalCode maxlength="5" placeholder="Code Postal">
+<input matInput #postalCode maxlength="5" placeholder="Code Postal" formControlName="code_postal"
+[ngModel]="festival.code_postal">
 <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
 </mat-form-field>
 
@@ -28,8 +39,13 @@ Code Postal:
 Département :
 </h4>
 <mat-form-field>
-<mat-label>Entrer le département</mat-label>
-<input matInput>
+<mat-label>Choisir le département</mat-label>
+<mat-select formControlName ="nom_departement">
+  <mat-option *ngFor="let unDep of departements"
+    [value]="unDep" >
+    {{unDep.nom}}
+  </mat-option>
+</mat-select>
 </mat-form-field>
 
 <h4>
@@ -45,14 +61,17 @@ Région :
 </mat-select>
 </mat-form-field>
 
+
 <h4>
 Coordonnées INSEE :
 </h4>
 <mat-form-field>
-<input type="number" matInput placeholder="x">
+<input type="number" matInput placeholder="x" formControlName="coordonnees_insee_x"
+  [ngModel]="festival.coordonnees_insee[0]">
 </mat-form-field>
 <mat-form-field>
-<input type="number" matInput placeholder="y">
+<input type="number" matInput placeholder="y" formControlName="coordonnees_insee_y"
+  [ngModel]="festival.coordonnees_insee[1]">
 </mat-form-field>
 
 
@@ -61,7 +80,7 @@ Domaine :
 </h4>
 <mat-form-field>
 <mat-label>Entrer le domaine</mat-label>
-<mat-select formControlName ="domaines">
+<mat-select formControlName ="domaine">
   <mat-option *ngFor="let domaine of domaines"
     [value]="domaine" >
     {{domaine}}
@@ -70,18 +89,21 @@ Domaine :
 </mat-form-field>
 
 <h4>
-Complément :
+Complément domaine:
 </h4>
 <mat-form-field>
-<mat-label>Entrer le complément</mat-label>
-<textarea matInput placeholder="Entrer le complément"></textarea>
+<mat-label>Entrer le complement</mat-label>
+<textarea matInput placeholder="Textarea" formControlName="complement_domaine"
+[ngModel]="festival.complement_domaine"></textarea>
 </mat-form-field>
 
 <h4>
 Date Création :
 </h4>
 <mat-form-field>
-<input matInput [matDatepicker]="dateCreat" placeholder="Choisir une date">
+<input matInput [matDatepicker]="dateCreat" placeholder="Choisir une date"
+formControlName="date_de_creation"
+ [ngModel]="festival.date_de_creation">
   <mat-datepicker-toggle matSuffix [for]="dateCreat"></mat-datepicker-toggle>
   <mat-datepicker #dateCreat></mat-datepicker>
 </mat-form-field>
@@ -90,7 +112,8 @@ Date Création :
 Date Début :
 </h4>
 <mat-form-field>
-<input matInput [matDatepicker]="dateDeb" placeholder="Choisir une date">
+<input matInput [matDatepicker]="dateDeb" placeholder="Choisir une date"
+  formControlName="date_de_debut" [ngModel]="festival.date_de_debut">
   <mat-datepicker-toggle matSuffix [for]="dateDeb"></mat-datepicker-toggle>
   <mat-datepicker #dateDeb></mat-datepicker>
 </mat-form-field>
@@ -99,7 +122,8 @@ Date Début :
 Date Fin :
 </h4>
 <mat-form-field>
-<input matInput [matDatepicker]="dateFin" placeholder="Choisir une date">
+<input matInput [matDatepicker]="dateFin" placeholder="Choisir une date"
+  formControlName="date_de_fin" [ngModel]="festival.date_de_fin">
   <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
   <mat-datepicker #dateFin></mat-datepicker>
 </mat-form-field>
@@ -136,7 +160,7 @@ Site Internet :
 </h4>
 <mat-form-field>
 <mat-label>Entrer le site internet</mat-label>
-<input matInput>
+<input matInput formControlName="site_web" [ngModel]="festival.site_web">
 </mat-form-field>
 
 
