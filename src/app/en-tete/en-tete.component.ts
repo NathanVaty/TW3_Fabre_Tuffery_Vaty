@@ -140,10 +140,12 @@ export class DialogRecherche implements OnInit {
   domaines;
   angForm: FormGroup;
   formCt = new FormControl('',[]);
+  clickAnnul = false;
 
   constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogRecherche>,
-    private info: InfoUtileService
+    private info: InfoUtileService,
+    private bd: ManipDonneesService
   ){
     this.createForm();
   }
@@ -161,6 +163,7 @@ export class DialogRecherche implements OnInit {
   }
 
   onNoClick(): void {
+    this.clickAnnul = true;
     this.dialogRef.close();
   }
 
@@ -169,6 +172,13 @@ export class DialogRecherche implements OnInit {
     this.region = this.info.getRegion();
     this.departements = this.info.getDepartement();
     this.domaines = this.info.getDomaine();
+  }
+  onSubmit(){
+    if (this.clickAnnul == false) {
+      this.bd.rechercheAvancee(this.angForm.value);
+    }
+    this.clickAnnul = false;
+    this.dialogRef.close();
   }
 
 }

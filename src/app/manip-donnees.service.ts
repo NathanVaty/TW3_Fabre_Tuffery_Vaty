@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import firestore from 'firebase/firestore';
 import {Subject} from 'rxjs/Subject';
-import { Query } from '@firebase/firestore-types'
+import { Query, CollectionReference } from '@firebase/firestore-types'
 import { InfoFestival } from './Infofest';
 
 const settings = {timestampsInSnapshots: true};
@@ -24,6 +24,9 @@ export class ManipDonneesService {
 
   private tabD;
   tabDSub = new Subject();
+
+  unFestival;
+  unFestivalSub = new Subject();
 
 
   code_insee: string;
@@ -71,10 +74,12 @@ export class ManipDonneesService {
   emitTab() {
     this.tabDSub.next(this.tabD);
   }
+  emitFestival() {
+    this.unFestivalSub.next(this.unFestival);
+  }
 
   getDonnees() {
     var tab = [];
-    var realTab= [];
     async function getD() {
       let campaignsRef = firebase.firestore().collection('festivals');
       let activeRef = await campaignsRef.get();
@@ -90,6 +95,28 @@ export class ManipDonneesService {
         });
       } catch(err) {
         reject([]);
+      }
+    });
+  }
+
+  getUnFestival(code) {
+    var donnees;
+    async function getD() {
+      let campaignsRef: Query = firebase.firestore().collection('festivals');
+      campaignsRef = campaignsRef.where('code_insee','==',code.toString());
+      let activeRef = await campaignsRef.get();
+      for (var campaign of activeRef.docs) {
+        donnees = (campaign.data());
+      }
+    }
+
+    return new Promise((resolve,reject) => {
+      try {
+        getD().then(() => {
+          resolve(donnees);
+        });
+      } catch(err) {
+        reject();
       }
     });
   }
@@ -133,7 +160,6 @@ export class ManipDonneesService {
     });
   }
 
-
   rechercheAvancee(data) {
     let tab = [];
     async function getD() {
@@ -148,7 +174,7 @@ export class ManipDonneesService {
             case 'mois_habituel_de_debut':
             campaignsRef = campaignsRef.where(champs,"==",data[champs]);
             break;
-            case 'departement':
+            case 'nom_departement':
             if (data[champs].num != ''){
               campaignsRef = campaignsRef.where('departement',"==",data[champs].num);
             }
@@ -175,8 +201,6 @@ export class ManipDonneesService {
       }
     });
   }
-
-
 
   ajoutFestival(data) {
     let unFestival: InfoFestival;
@@ -235,26 +259,26 @@ export class ManipDonneesService {
       }
     }
     unFestival = {
-        code_insee: this.code_insee,
-        code_postal: this.code_postal,
-        commentaires: this.commentaires,
-        commune_principale: this.commune_principale,
-        complement_domaine: this.complement_domaine,
-        coordonnees_insee: this.coordonnees_insee,
-        date_de_creation: this.date_de_creation,
-        date_de_debut: this.date_de_debut,
-        date_de_fin: this.date_de_fin,
-        departement: this.departement,
-        domaine: this.domaine,
-        libelle_commune_pour_calcul_cp_insee: this.libelle_commune_pour_calcul_cp_insee,
-        mois_habituel_de_debut: this.mois_habituel_de_debut,
-        mois_indicatif_en_chiffre_y_compris_double_mois: this.mois_indicatif_en_chiffre_y_compris_double_mois,
-        nom_de_la_manifestation: this.nom_de_la_manifestation,
-        nom_departement: this.nom_departement,
-        periodicite: this.periodicite,
-        region: this.region,
-        site_web: this.site_web
-    }
+       code_insee: this.code_insee,
+       code_postal: this.code_postal,
+       commentaires: this.commentaires,
+       commune_principale: this.commune_principale,
+       complement_domaine: this.complement_domaine,
+       coordonnees_insee: this.coordonnees_insee,
+       date_de_creation: this.date_de_creation,
+       date_de_debut: this.date_de_debut,
+       date_de_fin: this.date_de_fin,
+       departement: this.departement,
+       domaine: this.domaine,
+       libelle_commune_pour_calcul_cp_insee: this.libelle_commune_pour_calcul_cp_insee,
+       mois_habituel_de_debut: this.mois_habituel_de_debut,
+       mois_indicatif_en_chiffre_y_compris_double_mois: this.mois_indicatif_en_chiffre_y_compris_double_mois,
+       nom_de_la_manifestation: this.nom_de_la_manifestation,
+       nom_departement: this.nom_departement,
+       periodicite: this.periodicite,
+       region: this.region,
+       site_web: this.site_web
+   }
     console.log(unFestival);
     async function upload(data) {
       //console.log(path.join(''));
@@ -270,4 +294,106 @@ export class ManipDonneesService {
     this.emitTab();
   }
 
+  updateFestival(data) {
+    console.log(data);
+    // this.code_insee = data['code_insee'];
+    // this.code_postal = data['code_postal'];
+    // this.commune_principale = data['commune_principale'];
+    // this.libelle_commune_pour_calcul_cp_insee = data['commune_principale'];
+    // this.complement_domaine = data['complement_domaine'];
+    // this.coordonnees_insee[0] = data['coordonnees_insee_x'];
+    // this.coordonnees_insee[1] = data['coordonnees_insee_y'];
+    // this.date_de_creation = data['date_de_creation'];
+    // this.date_de_debut = data['date_de_debut'];
+    // this.date_de_fin = data['date_de_fin'];
+    // this.nom_departement = data['nom_departement'].nom;
+    // this.departement = data['nom_departement'].num;
+    // this.mois_habituel_de_debut = data['mois_habituel_de_debut'];
+    // this.mois_indicatif_en_chiffre_y_compris_double_mois = parseInt(data['domaine']);
+    // this.nom_de_la_manifestation = data['nom_de_la_manifestation'];
+    // this.domaine = data['domaine'];
+    // this.periodicite = data['periodicite'];
+    // this.region = data['region'];
+    // this.site_web = data['site_web'];
+    // this.commentaires = data['commentaires'];
+
+    //this.coordonnees_insee[0] = data['coordonnees_insee_x'];
+    //this.coordonnees_insee[1] = data['coordonnees_insee_y'];
+
+    let unFestival: InfoFestival = {
+       code_insee:  data['code_insee'],
+       code_postal: data['code_postal'],
+       commentaires: data['commentaires'],
+       commune_principale: data['commune_principale'],
+       complement_domaine: data['complement_domaine'],
+       coordonnees_insee: [data['coordonnees_insee_x'],data['coordonnees_insee_y']],
+       date_de_creation:  data['date_de_creation'],
+       date_de_debut: data['date_de_debut'],
+       date_de_fin: data['date_de_fin'],
+       departement: data['nom_departement'].num,
+       domaine: data['domaine'],
+       libelle_commune_pour_calcul_cp_insee: data['commune_principale'],
+       mois_habituel_de_debut: data['mois_habituel_de_debut'],
+       mois_indicatif_en_chiffre_y_compris_double_mois: parseInt(data['domaine']),
+       nom_de_la_manifestation: data['nom_de_la_manifestation'],
+       nom_departement: data['nom_departement'].nom,
+       periodicite: data['periodicite'],
+       region: data['region'],
+       site_web: data['site_web']
+   };
+console.log(unFestival);
+    async function update(donnees) {
+      return await firebase.firestore()
+      .collection('festivals')
+      .add(donnees)
+      .then(() => alert('festival modifié'))
+      .catch(() => alert("erreur ajout"));
+    }
+    console.log(unFestival);
+
+    async function modif(festival) {
+      let campaignsRef: any = firebase.firestore().collection('festivals');
+      campaignsRef = campaignsRef.where('code_insee','==',unFestival.code_insee);
+      let activeRef = await campaignsRef.get();
+      for (var campaign of activeRef.docs) {
+        let idDoc = campaign.id;
+        let query = await firebase.firestore().collection('festivals').doc(idDoc).update(festival);
+
+      }
+    }
+
+    modif(unFestival);
+    this.getDonnees().then((value) => {
+      alert('festival modifié');
+      this.tabD = value;
+      this.emitTab();
+    });
+  }
+  deteleFestival(code){
+    var donnees;
+    async function deleteD() {
+      let campaignsRef: any = firebase.firestore().collection('festivals');
+      campaignsRef = campaignsRef.where('code_insee','==',code.toString());
+      let activeRef = await campaignsRef.get();
+      for (var campaign of activeRef.docs) {
+        let idDoc = campaign.id;
+        let query = await firebase.firestore().collection('festivals').doc(idDoc).delete();
+      }
+    }
+
+    return new Promise((resolve,reject) => {
+      try {
+        deleteD().then(() => {
+          this.getDonnees().then((value)=> {
+            this.tabD = value;
+            resolve(this.tabD);
+            this.emitTab();
+            alert('suppression réussi');
+          })
+        });
+      } catch(err) {
+        reject([]);
+      }
+    });
+  }
 }

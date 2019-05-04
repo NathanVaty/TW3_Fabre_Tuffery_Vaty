@@ -32,7 +32,9 @@ import { LoginService } from './login.service';
 import { InfoUtileService } from './info-utile.service';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
- 
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 
 export const MY_FORMATS = {
