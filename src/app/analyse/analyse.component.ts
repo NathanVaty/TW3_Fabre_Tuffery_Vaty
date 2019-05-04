@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ManipDonneesService } from '../manip-donnees.service';
+import { AnalyseService } from '../analyse.service';
 import { FormGroup,  FormBuilder,  Validators, FormControl } from '@angular/forms';
+import {Chart} from 'chart.js';
+
+export interface stat {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-analyse',
@@ -11,28 +18,11 @@ export class AnalyseComponent implements OnInit {
 
   formStat: FormGroup;
 
-  constructor(private bd: ManipDonneesService, private fb: FormBuilder) { }
-
-  createForm() {
-   this.formStat = this.fb.group({
-     domaine: [''],
-      departement: [''],
-      mois_habituel_de_debut: ['']
-   });
- }
-
-   public barChartOptions = {
-     scaleShowVerticalLines: false,
-     scales: {
-            yAxes: [{
-                ticks: {
-                    min: 0,
-                    stepSize: 1
-                }
-            }],
-          },
-     responsive: true
-   };
+  typeStat: stat[] = [
+   {value: 'musique', viewValue: 'Type de musique'},
+   {value: 'dept', viewValue: 'Departement'},
+   {value: 'moisDeb', viewValue: 'Mois de debut'}
+ ];
 
    // modifier le param pour qu'il vienne du formulaire
     public barChartLabels = this.addDataIntoLabelsBarParam('musique');
@@ -40,12 +30,44 @@ export class AnalyseComponent implements OnInit {
     public barChartLegend = true;
     public barChartData = [
       {data:this.countDataBarParam('musique'),label:this.getTypeData('musique')}
-  ];
+    ];
+    public barChartOptions = {
+      scaleShowVerticalLines: false,
+      scales: {
+           yAxes: [{
+               ticks: {
+                   min: 0,
+                   stepSize: 1
+               }
+           }],
+         },
+         responsive: true
+    };
 
-  ngOnInit() {}
+  constructor(private bd: ManipDonneesService, private fb: FormBuilder, private analyse: AnalyseService) {
+    this.createForm();
+  }
+
+  createForm() {
+   this.formStat = this.fb.group({
+     selectStat: ['']
+   });
+  }
+
+  ngOnInit() {
+
+  }
 
   onSubmit() {
-    console.log("Valeur envoyer par le submit",this.countDataBarParam(this.formStat.value));
+    var valueStat = this.formStat.value;
+    var paramStat = valueStat['selectStat'];
+    console.log("Valeur envoyer par le submit Object",valueStat);
+    console.log("valuer string :", paramStat);
+
+    this.barChartLabels = this.addDataIntoLabelsBarParam(paramStat);
+    this.barChartData = [
+      {data:this.countDataBarParam(paramStat), label:this.getTypeData(paramStat)}
+    ];
     this.formStat.reset('');
   }
 
@@ -98,7 +120,7 @@ export class AnalyseComponent implements OnInit {
     let nbLabelsBar = [];
     switch(stat){
       case 'musique':
-        //console.log("tentative bar chart");
+        //console.log("tentative count bar chart");
           this.bd.tabDSub.subscribe((tab) => {
               let data = tab
                 for (let values of Array.from(this.barChartLabels.values()) ) {
@@ -117,7 +139,7 @@ export class AnalyseComponent implements OnInit {
         return nbLabelsBar;
       break;
       case 'dept':
-        //console.log("tentative bar chart");
+        //console.log("tentative count bar chart");
           this.bd.tabDSub.subscribe((tab) => {
               let data = tab
                 for (let values of Array.from(this.barChartLabels.values()) ) {
@@ -170,6 +192,5 @@ export class AnalyseComponent implements OnInit {
       break;
     }
   }
-
 
 }
