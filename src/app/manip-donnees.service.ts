@@ -22,7 +22,7 @@ const config = {
 export class ManipDonneesService {
   private ref;
 
-  private tabD;
+  tabD;
   tabDSub = new Subject();
 
   unFestival;
@@ -296,30 +296,6 @@ export class ManipDonneesService {
 
   updateFestival(data) {
     console.log(data);
-    // this.code_insee = data['code_insee'];
-    // this.code_postal = data['code_postal'];
-    // this.commune_principale = data['commune_principale'];
-    // this.libelle_commune_pour_calcul_cp_insee = data['commune_principale'];
-    // this.complement_domaine = data['complement_domaine'];
-    // this.coordonnees_insee[0] = data['coordonnees_insee_x'];
-    // this.coordonnees_insee[1] = data['coordonnees_insee_y'];
-    // this.date_de_creation = data['date_de_creation'];
-    // this.date_de_debut = data['date_de_debut'];
-    // this.date_de_fin = data['date_de_fin'];
-    // this.nom_departement = data['nom_departement'].nom;
-    // this.departement = data['nom_departement'].num;
-    // this.mois_habituel_de_debut = data['mois_habituel_de_debut'];
-    // this.mois_indicatif_en_chiffre_y_compris_double_mois = parseInt(data['domaine']);
-    // this.nom_de_la_manifestation = data['nom_de_la_manifestation'];
-    // this.domaine = data['domaine'];
-    // this.periodicite = data['periodicite'];
-    // this.region = data['region'];
-    // this.site_web = data['site_web'];
-    // this.commentaires = data['commentaires'];
-
-    //this.coordonnees_insee[0] = data['coordonnees_insee_x'];
-    //this.coordonnees_insee[1] = data['coordonnees_insee_y'];
-
     let unFestival: InfoFestival = {
        code_insee:  data['code_insee'],
        code_postal: data['code_postal'],

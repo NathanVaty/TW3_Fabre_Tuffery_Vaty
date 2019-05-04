@@ -24,13 +24,17 @@ export class AnalyseComponent implements OnInit {
    {value: 'moisDeb', viewValue: 'Mois de debut'}
  ];
 
+    label = 'musique';
    // modifier le param pour qu'il vienne du formulaire
-    public barChartLabels = this.addDataIntoLabelsBarParam('dept');
+    public barChartLabels = [];
     public barChartType = 'bar';
     public barChartLegend = true;
-    public barChartData = [
-      {data:this.countDataBarParam('dept'),label:this.getTypeData('dept')}
-    ];
+    public barChartData;
+    //= [
+    //   {data:this.countDataBarParam('musique'),label:this.getTypeData('musique')}
+    // ];
+
+    donnees;
     public barChartOptions = {
       scaleShowVerticalLines: false,
       scales: {
@@ -50,12 +54,30 @@ export class AnalyseComponent implements OnInit {
 
   createForm() {
    this.formStat = this.fb.group({
-     selectStat: ['']
+     selectStat: ['', Validators.required]
    });
   }
 
   ngOnInit() {
+    this.donnees = this.bd.tabD;
+    if (this.donnees != undefined && this.donnees.length != 0) {
+      console.log(this.donnees);
+      this.barChartLabels = this.addDataIntoLabelsBarParam(this.label,this.donnees);
+      console.log(this.barChartLabels);
+      this.barChartData = [
+        {data:this.countDataBarParam(this.label, this.donnees), label:this.getTypeData(this.label)}
+      ];
+    }
 
+    this.bd.tabDSub.subscribe((tab) => {
+      this.donnees = tab;
+      this.barChartLabels = this.addDataIntoLabelsBarParam(this.label,this.donnees);
+      console.log(this.barChartLabels);
+      this.barChartData = [
+        {data:this.countDataBarParam(this.label, this.donnees), label:this.getTypeData(this.label)}
+      ];
+      //console.log("Data labels Bar Chart : ", dataLabelsBar);
+    });
   }
 
   onSubmit() {
@@ -64,65 +86,52 @@ export class AnalyseComponent implements OnInit {
     console.log("Valeur envoyer par le submit Object",valueStat);
     console.log("valuer string :", paramStat);
 
-    this.barChartLabels = this.addDataIntoLabelsBarParam(paramStat);
+
+    this.barChartLabels = this.addDataIntoLabelsBarParam(paramStat,this.donnees);
     this.barChartData = [
-      {data:this.countDataBarParam(paramStat), label:this.getTypeData(paramStat)}
+      {data:this.countDataBarParam(paramStat, this.donnees), label:this.getTypeData(paramStat)}
     ];
-    this.formStat.reset('');
   }
 
 /* =================================================================== */
-    addDataIntoLabelsBarParam(stat){
+    addDataIntoLabelsBarParam(label,stat){
       let dataLabelsBar = [];
-      switch(stat){
+      switch(label){
         case 'musique':
           //console.log("tentative bar chart");
-          this.bd.tabDSub.subscribe((tab) => {
-            let data = tab
-            for (const i of Object.keys(data)) {
-              if (this.barChartLabels.indexOf(data[i].domaine) == -1) {
-                  dataLabelsBar.push(data[i].domaine);
-                }
+          for (const i of Object.keys(stat)) {
+            if (dataLabelsBar.indexOf(stat[i].domaine) == -1) {
+              dataLabelsBar.push(stat[i].domaine);
             }
-            //console.log("Data labels Bar Chart : ", dataLabelsBar);
-          });
+          }
           return dataLabelsBar;
         break;
         case 'dept':
           //console.log("tentative bar chart");
-          this.bd.tabDSub.subscribe((tab) => {
-            let data = tab
-            for (const i of Object.keys(data)) {
-              if (this.barChartLabels.indexOf(data[i].departement) == -1) {
-                  dataLabelsBar.push(data[i].departement);
-                }
+          for (const i of Object.keys(stat)) {
+            if (dataLabelsBar.indexOf(stat[i].nom_departement) == -1) {
+              dataLabelsBar.push(stat[i].nom_departement);
             }
-            //console.log("Data labels Bar Chart : ", dataLabelsBar);
-          });
+          }
+
           return dataLabelsBar;
         break;
         case 'moisDeb':
-          this.bd.tabDSub.subscribe((tab) => {
-            let data = tab
-            for (const i of Object.keys(data)) {
-              if (this.barChartLabels.indexOf(data[i].mois_habituel_de_debut) == -1) {
-                  dataLabelsBar.push(data[i].mois_habituel_de_debut);
-                }
-            }
-            //console.log("Data labels Bar Chart : ", dataLabelsBar);
-          });
+        for (const i of Object.keys(stat)) {
+          if (dataLabelsBar.indexOf(stat[i].mois_habituel_de_debut) == -1) {
+            dataLabelsBar.push(stat[i].mois_habituel_de_debut);
+          }
+        }
           return dataLabelsBar;
         break;
       }
   }
 
-  countDataBarParam(stat){
+  countDataBarParam(label,data){
     let nbLabelsBar = [];
-    switch(stat){
+    switch(label){
       case 'musique':
         //console.log("tentative count bar chart");
-          this.bd.tabDSub.subscribe((tab) => {
-              let data = tab
                 for (let values of Array.from(this.barChartLabels.values()) ) {
                   //console.log("valeur de values :", values);
                   var nbOccu = 0
@@ -135,35 +144,29 @@ export class AnalyseComponent implements OnInit {
                   nbLabelsBar.push(nbOccu);
                   //console.log("Tab Nb occu bar chart", nbLabelsBar);
                 }
-          });
         return nbLabelsBar;
       break;
       case 'dept':
         //console.log("tentative count bar chart");
-          this.bd.tabDSub.subscribe((tab) => {
-              let data = tab
                 for (let values of Array.from(this.barChartLabels.values()) ) {
                   //console.log("valeur de values :", values);
                   var nbOccu = 0
                   //console.log("nbOccu barChart :", nbOccu);
                   for (const i of Object.keys(data)){
-                    if (values == data[i].departement) {
+                    if (values == data[i].nom_departement) {
                       nbOccu = nbOccu + 1;
                     }
                   }
                   nbLabelsBar.push(nbOccu);
                   //console.log("Tab Nb occu bar chart", nbLabelsBar);
                 }
-          });
         return nbLabelsBar;
       break;
       case 'moisDeb':
         //console.log("tentative bar chart");
-          this.bd.tabDSub.subscribe((tab) => {
-              let data = tab
                 for (let values of Array.from(this.barChartLabels.values()) ) {
                   //console.log("valeur de values :", values);
-                  var nbOccu = 0
+                  var nbOccu = 0;
                   //console.log("nbOccu barChart :", nbOccu);
                   for (const i of Object.keys(data)){
                     if (values == data[i].mois_habituel_de_debut) {
@@ -173,7 +176,6 @@ export class AnalyseComponent implements OnInit {
                   nbLabelsBar.push(nbOccu);
                   //console.log("Tab Nb occu bar chart", nbLabelsBar);
                 }
-          });
         return nbLabelsBar;
       break;
     }
@@ -185,7 +187,7 @@ export class AnalyseComponent implements OnInit {
         return "Type de musique";
       break;
       case('dept'):
-        return "departement";
+        return "Département";
       break;
       case('moisDeb'):
       return "Mois de début"
