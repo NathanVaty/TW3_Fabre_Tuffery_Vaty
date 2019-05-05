@@ -5,13 +5,13 @@
               [options]="barChartOptions"
               [legend]="barChartLegend"
               [chartType]="barChartType"
-              *ngIf="label != 'festivalType' ">
+              *ngIf="label != 'festivalType' && label != 'periodicite'">
       </canvas>
       <canvas baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"
               [chartType]="doughnut"
-              *ngIf="label == 'festivalType'">
+              *ngIf="label == 'festivalType' || label == 'periodicite'">
       </canvas>
 </div>
 <div></div>
