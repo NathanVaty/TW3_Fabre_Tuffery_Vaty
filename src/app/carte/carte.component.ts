@@ -69,7 +69,6 @@ export class CarteComponent implements OnInit {
     let festivalList;
     this.bd.tabDSub.subscribe((value) => {
        festivalList = value;
-      console.log(festivalList);
 
 
       /* Création d'un marqueur */

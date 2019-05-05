@@ -8,12 +8,9 @@ import { ManipDonneesService } from '../manip-donnees.service';
 })
 export class AffichageComponent implements OnInit {
 
-  constructor(private bd: ManipDonneesService) { }
+  constructor() { }
 
   ngOnInit() {
-    //var p = this.bd.getDonnees();
-    //console.log(p);
-    this.bd.emitTab();
   }
 
 }

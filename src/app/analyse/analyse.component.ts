@@ -33,9 +33,6 @@ export class AnalyseComponent implements OnInit {
     public barChartLegend = true;
     public barChartData;
     public doughnut = 'doughnut';
-    //= [
-    //   {data:this.countDataBarParam('musique'),label:this.getTypeData('musique')}
-    // ];
 
     donnees;
     public barChartOptions = {
@@ -79,7 +76,6 @@ export class AnalyseComponent implements OnInit {
       this.barChartData = [
         {data:this.countDataBarParam(this.label, this.donnees), label:this.getTypeData(this.label)}
       ];
-      //console.log("Data labels Bar Chart : ", dataLabelsBar);
     });
   }
 
@@ -90,6 +86,7 @@ export class AnalyseComponent implements OnInit {
     console.log("valuer string :", paramStat);
 
     this.label = paramStat;
+    console.log(this.donnees);
     this.barChartLabels = this.addDataIntoLabelsBarParam(paramStat,this.donnees);
     this.barChartData = [
       {data:this.countDataBarParam(paramStat, this.donnees), label:this.getTypeData(paramStat)}
@@ -101,7 +98,6 @@ export class AnalyseComponent implements OnInit {
       let dataLabelsBar = [];
       switch(label){
         case 'festivalType':
-          //console.log("tentative bar chart");
           for (const i of Object.keys(stat)) {
             if (dataLabelsBar.indexOf(stat[i].domaine) == -1) {
               dataLabelsBar.push(stat[i].domaine);
@@ -110,7 +106,6 @@ export class AnalyseComponent implements OnInit {
           return dataLabelsBar;
         break;
         case 'dept':
-          //console.log("tentative bar chart");
           for (const i of Object.keys(stat)) {
             if (dataLabelsBar.indexOf(stat[i].nom_departement) == -1) {
               dataLabelsBar.push(stat[i].nom_departement);
@@ -121,26 +116,27 @@ export class AnalyseComponent implements OnInit {
         break;
         case 'moisDeb':
         for (const i of Object.keys(stat)) {
-          if (dataLabelsBar.indexOf(stat[i].mois_habituel_de_debut) == -1) {
-            dataLabelsBar.push(stat[i].mois_habituel_de_debut);
+          if (dataLabelsBar.indexOf(stat[i].nom_departement) == -1) {
+            dataLabelsBar.push(stat[i].nom_departement);
           }
         }
           return dataLabelsBar;
         break;
         case 'region':
-          for (const i of Object.keys(stat)) {
-            if (dataLabelsBar.indexOf(stat[i].region) == -1) {
-              dataLabelsBar.push(stat[i].region);
-            }
+        console.log(stat);
+        for (const i of Object.keys(stat)) {
+          if (dataLabelsBar.indexOf(stat[i].region) == -1) {
+            dataLabelsBar.push(stat[i].region);
           }
+        }
           return dataLabelsBar;
         break;
         case 'periodicite':
-          for (const i of Object.keys(stat)) {
-            if (dataLabelsBar.indexOf(stat[i].periodicite)==-1) {
-              dataLabelsBar.push(stat[i].periodicite);
-            }
+        for (const i of Object.keys(stat)) {
+          if (dataLabelsBar.indexOf(stat[i].periodicite) == -1) {
+            dataLabelsBar.push(stat[i].periodicite);
           }
+        }
           return dataLabelsBar;
         break;
       }
@@ -150,74 +146,64 @@ export class AnalyseComponent implements OnInit {
     let nbLabelsBar = [];
     switch(label){
       case 'festivalType':
-        //console.log("tentative count bar chart");
                 for (let values of Array.from(this.barChartLabels.values()) ) {
-                  //console.log("valeur de values :", values);
                   var nbOccu = 0
-                  //console.log("nbOccu barChart :", nbOccu);
                   for (const i of Object.keys(data)){
                     if (values == data[i].domaine) {
                       nbOccu = nbOccu + 1;
                     }
                   }
                   nbLabelsBar.push(nbOccu);
-                  //console.log("Tab Nb occu bar chart", nbLabelsBar);
                 }
         return nbLabelsBar;
       break;
       case 'dept':
-        //console.log("tentative count bar chart");
                 for (let values of Array.from(this.barChartLabels.values()) ) {
-                  //console.log("valeur de values :", values);
                   var nbOccu = 0
-                  //console.log("nbOccu barChart :", nbOccu);
                   for (const i of Object.keys(data)){
                     if (values == data[i].nom_departement) {
                       nbOccu = nbOccu + 1;
                     }
                   }
                   nbLabelsBar.push(nbOccu);
-                  //console.log("Tab Nb occu bar chart", nbLabelsBar);
                 }
         return nbLabelsBar;
       break;
       case 'moisDeb':
-        //console.log("tentative bar chart");
                 for (let values of Array.from(this.barChartLabels.values()) ) {
-                  //console.log("valeur de values :", values);
                   var nbOccu = 0
-                  //console.log("nbOccu barChart :", nbOccu);
                   for (const i of Object.keys(data)){
                     if (values == data[i].mois_habituel_de_debut) {
                       nbOccu = nbOccu + 1;
                     }
                   }
                   nbLabelsBar.push(nbOccu);
-                  //console.log("Tab Nb occu bar chart", nbLabelsBar);
                 }
         return nbLabelsBar;
       break;
       case 'region':
-        for (let values of Array.from(this.barChartLabels.values()) ) {
-          var nbOccu = 0
-          for (const i of Object.keys(data)) {
-            if (values == data[i].region) {
-              nbOccu = nbOccu + 1;
-            }
+      for (let values of Array.from(this.barChartLabels.values()) ) {
+        var nbOccu = 0
+        for (const i of Object.keys(data)){
+          if (values == data[i].region) {
+            nbOccu = nbOccu + 1;
           }
-          nbLabelsBar.push(nbOccu);
         }
+        nbLabelsBar.push(nbOccu);
+      }
+      return nbLabelsBar;
       break;
       case 'periodicite':
-        for (let values of Array.from(this.barChartLabels.values()) ) {
-          var nbOccu = 0
-          for (const i of Object.keys(data)) {
-            if (values == data[i].periodicite) {
-              nbOccu = nbOccu + 1;
-            }
+      for (let values of Array.from(this.barChartLabels.values()) ) {
+        var nbOccu = 0
+        for (const i of Object.keys(data)){
+          if (values == data[i].periodicite) {
+            nbOccu = nbOccu + 1;
           }
-          nbLabelsBar.push(nbOccu);
         }
+        nbLabelsBar.push(nbOccu);
+      }
+      return nbLabelsBar;
       break;
     }
   }
@@ -237,7 +223,7 @@ export class AnalyseComponent implements OnInit {
         return "Région";
       break;
       case 'periodicite':
-        return "Périodicite";
+        return "Périodicité";
       break;
     }
   }
