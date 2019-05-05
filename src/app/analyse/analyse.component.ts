@@ -41,7 +41,6 @@ export class AnalyseComponent implements OnInit {
            yAxes: [{
                ticks: {
                    min: 0,
-                   stepSize: 1
                }
            }],
          },
@@ -116,8 +115,8 @@ export class AnalyseComponent implements OnInit {
         break;
         case 'moisDeb':
         for (const i of Object.keys(stat)) {
-          if (dataLabelsBar.indexOf(stat[i].nom_departement) == -1) {
-            dataLabelsBar.push(stat[i].nom_departement);
+          if (dataLabelsBar.indexOf(stat[i].mois_habituel_de_debut) == -1) {
+            dataLabelsBar.push(stat[i].mois_habituel_de_debut);
           }
         }
           return dataLabelsBar;
@@ -211,19 +210,19 @@ export class AnalyseComponent implements OnInit {
   getTypeData(stat){
     switch(stat){
       case('festivalType'):
-        return "Type de festival";
+        return "Festivals de ce type";
       break;
       case('dept'):
-        return "Département";
+        return "Nombre festivals dans ce département";
       break;
       case('moisDeb'):
-        return "Mois de début";
+        return "Nombre de festivals ce mois-ci";
       break;
       case 'region':
-        return "Région";
+        return "Nombre de festivals dans cette région";
       break;
       case 'periodicite':
-        return "Périodicité";
+        return "Nombre de festivals de cette périodicité";
       break;
     }
   }
