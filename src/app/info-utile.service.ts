@@ -65,6 +65,12 @@ export class InfoUtileService {
   ];
   departements: Departement[];
   departementsBazard = [
+    {
+      "departmentCode" : "",
+      "departmentName" : "",
+      "regionCode" : "",
+      "regionName" : ""
+    },
   {
     "departmentCode" : "01",
     "departmentName" : "Ain",

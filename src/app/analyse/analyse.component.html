@@ -26,6 +26,6 @@
       </mat-select>
     </mat-form-field>
 
-      <button mat-raised-button>Valider</button>
+      <button mat-raised-button [disabled]="formStat.pristine || formStat.invalid">Valider</button>
     </form>
   </div>
