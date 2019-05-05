@@ -6,6 +6,7 @@ import { ManipDonneesService } from '../manip-donnees.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { InfoFestival } from '../Infofest';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-edit-festival',
@@ -27,7 +28,8 @@ export class EditFestivalComponent implements OnInit {
   constructor(private fb: FormBuilder,public dialog: MatDialog, private infoUtileService : InfoUtileService,
           private bd: ManipDonneesService,
           private route: ActivatedRoute,
-          private goback: Router) {
+          private goback: Router,
+          private login: LoginService) {
     this.formModif = this.fb.group({
       code_insee:['',Validators.required],
       nom_de_la_manifestation:['', Validators.required],
@@ -78,6 +80,10 @@ export class EditFestivalComponent implements OnInit {
   retour() {
     this.toSupp = true;
     this.goback.navigate(['','']);
+    this.login.connexion({
+      ndc:'admin',
+      mdp: 'admin'
+    });
   }
   onSubmit(){
     if(this.toSupp == false) {

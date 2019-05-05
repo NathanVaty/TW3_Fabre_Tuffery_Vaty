@@ -64,6 +64,7 @@ export class EnTeteComponent implements OnInit  {
   }
 
   ngOnInit(){
+    this.connect = this.login.isAdmin
     this.login.adminSub.subscribe((value) => {
       this.connect = value;
     });

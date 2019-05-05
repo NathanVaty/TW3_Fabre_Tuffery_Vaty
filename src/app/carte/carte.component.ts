@@ -102,6 +102,7 @@ export class CarteComponent implements OnInit {
 
     festivalList = this.bd.tabD;
     if (festivalList != undefined && festivalList.length != 0) {
+      this.connect = this.login.isAdmin;
       /* Création d'un marqueur */
       const myMark = L.icon({
         iconUrl :'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
