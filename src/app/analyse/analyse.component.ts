@@ -49,7 +49,7 @@ export class AnalyseComponent implements OnInit {
          responsive: true
     };
 
-  constructor(private bd: ManipDonneesService, private fb: FormBuilder, private analyse: AnalyseService) {
+  constructor(private bd: ManipDonneesService, private fb: FormBuilder) {
     this.createForm();
   }
 
