@@ -30,6 +30,7 @@ export class AnalyseComponent implements OnInit {
     public barChartType = 'bar';
     public barChartLegend = true;
     public barChartData;
+    public doughnut = 'doughnut';
     //= [
     //   {data:this.countDataBarParam('musique'),label:this.getTypeData('musique')}
     // ];
@@ -86,7 +87,7 @@ export class AnalyseComponent implements OnInit {
     console.log("Valeur envoyer par le submit Object",valueStat);
     console.log("valuer string :", paramStat);
 
-
+    this.label = paramStat;
     this.barChartLabels = this.addDataIntoLabelsBarParam(paramStat,this.donnees);
     this.barChartData = [
       {data:this.countDataBarParam(paramStat, this.donnees), label:this.getTypeData(paramStat)}

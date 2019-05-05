@@ -4,7 +4,14 @@
               [labels]="barChartLabels"
               [options]="barChartOptions"
               [legend]="barChartLegend"
-              [chartType]="barChartType">
+              [chartType]="barChartType"
+              *ngIf="label != 'musique' ">
+      </canvas>
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [chartType]="doughnut"
+              *ngIf="label == 'musique' ">
       </canvas>
 </div>
 <div></div>
