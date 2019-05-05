@@ -32,7 +32,8 @@ export class EnTeteComponent implements OnInit  {
 
   constructor(public dialog: MatDialog,
               private login: LoginService,
-              private info: InfoUtileService) { }
+              private info: InfoUtileService,
+              private bd: ManipDonneesService) { }
 
 
   //======AJOUTER UN FESTIVAL================
@@ -47,6 +48,13 @@ export class EnTeteComponent implements OnInit  {
     dialogRef.afterClosed().subscribe(result => {
      console.log('Dialog ajout closed');
    });
+  }
+
+  reset() {
+    this.bd.getDonnees().then((value) => {
+      this.bd.tabD = value;
+      this.bd.emitTab();
+    });
   }
 
   //======RECHERCHE================
