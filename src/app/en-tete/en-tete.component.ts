@@ -32,7 +32,8 @@ export class EnTeteComponent implements OnInit  {
 
   constructor(public dialog: MatDialog,
               private login: LoginService,
-              private info: InfoUtileService) { }
+              private info: InfoUtileService,
+              private bd: ManipDonneesService) { }
 
 
   //======AJOUTER UN FESTIVAL================
@@ -47,6 +48,13 @@ export class EnTeteComponent implements OnInit  {
     dialogRef.afterClosed().subscribe(result => {
      console.log('Dialog ajout closed');
    });
+  }
+
+  reset() {
+    this.bd.getDonnees().then((value) => {
+      this.bd.tabD = value;
+      this.bd.emitTab();
+    });
   }
 
   //======RECHERCHE================
@@ -64,6 +72,7 @@ export class EnTeteComponent implements OnInit  {
   }
 
   ngOnInit(){
+    this.connect = this.login.isAdmin
     this.login.adminSub.subscribe((value) => {
       this.connect = value;
     });
@@ -173,7 +182,6 @@ export class DialogRecherche implements OnInit {
     this.region = this.info.getRegion();
     this.departements = this.info.getDepartement();
     this.domaines = this.info.getDomaine();
-      console.log(this.region);
   }
   onSubmit(){
     if (this.clickAnnul == false) {

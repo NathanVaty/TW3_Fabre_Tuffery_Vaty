@@ -6,6 +6,7 @@ import { ManipDonneesService } from '../manip-donnees.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { InfoFestival } from '../Infofest';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-edit-festival',
@@ -27,7 +28,8 @@ export class EditFestivalComponent implements OnInit {
   constructor(private fb: FormBuilder,public dialog: MatDialog, private infoUtileService : InfoUtileService,
           private bd: ManipDonneesService,
           private route: ActivatedRoute,
-          private goback: Router) {
+          private goback: Router,
+          private login: LoginService) {
     this.formModif = this.fb.group({
       code_insee:['',Validators.required],
       nom_de_la_manifestation:['', Validators.required],
@@ -78,6 +80,10 @@ export class EditFestivalComponent implements OnInit {
   retour() {
     this.toSupp = true;
     this.goback.navigate(['','']);
+    this.login.connexion({
+      ndc:'admin',
+      mdp: 'admin'
+    });
   }
   onSubmit(){
     if(this.toSupp == false) {
@@ -145,31 +151,22 @@ export class EditFestivalComponent implements OnInit {
         };
         this.formModif.get('code_insee').setValue(value.code_insee);
         let j;
-        for (j = 0; this.departements[j].nom != value.nom_departement; j++) {
-        }
+        for (j = 0; this.departements[j].nom != value.nom_departement; j++) {}
           this.formModif.get('nom_departement').setValue(this.departements[j]);
-          console.log(this.departements[j]);
-        for (let i = 0; i<this.region.length; i++) {
-          if(this.region[i] = value.region){
-              this.formModif.get('region').setValue(this.region[i]);
-          }
-        }
-        for (let i = 0; i<this.domaines.length; i++) {
-          if(this.domaines[i] = value.domaine){
-              this.formModif.get('domaine').setValue(this.domaines[i]);
-          }
-        }
-        for (let i = 0; i<this.mois.length;i++){
-          if(this.mois[i] = value.mois_habituel_de_debut){
-              this.formModif.get('mois_habituel_de_debut').setValue(this.mois[i]);
-          }
-        }
+
+          let i;
+        for (i = 0; this.region[i] != value.region; i++) {}
+        this.formModif.get('region').setValue(this.region[i]);
+
+        for (i = 0; this.domaines[i] != value.domaine; i++) {}
+        this.formModif.get('domaine').setValue(this.domaines[i]);
+
+        for (i = 0; this.mois[i] != value.mois_habituel_de_debut;i++){}
+        this.formModif.get('mois_habituel_de_debut').setValue(this.mois[i]);
+
         if(value.periodicite!= null) {
-          for (let i = 0; i<this.periodicites.length; i++){
-            if(this.periodicites[i] = value.periodicite){
-                this.formModif.get('periodicite').setValue(this.periodicites[i]);
-            }
-          }
+          for (i = 0; this.periodicites[i] != value.periodicite; i++){}
+            this.formModif.get('periodicite').setValue(this.periodicites[i]);
         }
     });
   }

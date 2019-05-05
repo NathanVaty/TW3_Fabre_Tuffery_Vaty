@@ -42,7 +42,7 @@ export class InfoUtileService {
     '12 (décembre)'
   ];
 
-  region =[
+  regions =[
     '',
     'Auvergne-Rhône-Alpes',
     'Bougogne-Franche-Comté',
@@ -714,7 +714,7 @@ export class InfoUtileService {
   }
 
   getRegion() {
-    return this.region;
+    return this.regions;
   }
 
   getDepartement() {
