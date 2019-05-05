@@ -19,12 +19,14 @@ export class AnalyseComponent implements OnInit {
   formStat: FormGroup;
 
   typeStat: stat[] = [
-   {value: 'musique', viewValue: 'Type de musique'},
+   {value: 'festivalType', viewValue: 'Type de festival'},
    {value: 'dept', viewValue: 'Departement'},
-   {value: 'moisDeb', viewValue: 'Mois de debut'}
+   {value: 'moisDeb', viewValue: 'Mois de debut'},
+   {value: 'region', viewValue:'Region'},
+   {value:'periodicite', viewValue:'Periodicite'}
  ];
 
-    label = 'musique';
+    label = 'festivalType';
    // modifier le param pour qu'il vienne du formulaire
     public barChartLabels = [];
     public barChartType = 'bar';
@@ -98,7 +100,7 @@ export class AnalyseComponent implements OnInit {
     addDataIntoLabelsBarParam(label,stat){
       let dataLabelsBar = [];
       switch(label){
-        case 'musique':
+        case 'festivalType':
           //console.log("tentative bar chart");
           for (const i of Object.keys(stat)) {
             if (dataLabelsBar.indexOf(stat[i].domaine) == -1) {
@@ -125,13 +127,29 @@ export class AnalyseComponent implements OnInit {
         }
           return dataLabelsBar;
         break;
+        case 'region':
+          for (const i of Object.keys(stat)) {
+            if (dataLabelsBar.indexOf(stat[i].region) == -1) {
+              dataLabelsBar.push(stat[i].region);
+            }
+          }
+          return dataLabelsBar;
+        break;
+        case 'periodicite':
+          for (const i of Object.keys(stat)) {
+            if (dataLabelsBar.indexOf(stat[i].periodicite)==-1) {
+              dataLabelsBar.push(stat[i].periodicite);
+            }
+          }
+          return dataLabelsBar;
+        break;
       }
   }
 
   countDataBarParam(label,data){
     let nbLabelsBar = [];
     switch(label){
-      case 'musique':
+      case 'festivalType':
         //console.log("tentative count bar chart");
                 for (let values of Array.from(this.barChartLabels.values()) ) {
                   //console.log("valeur de values :", values);
@@ -167,7 +185,7 @@ export class AnalyseComponent implements OnInit {
         //console.log("tentative bar chart");
                 for (let values of Array.from(this.barChartLabels.values()) ) {
                   //console.log("valeur de values :", values);
-                  var nbOccu = 0;
+                  var nbOccu = 0
                   //console.log("nbOccu barChart :", nbOccu);
                   for (const i of Object.keys(data)){
                     if (values == data[i].mois_habituel_de_debut) {
@@ -179,19 +197,47 @@ export class AnalyseComponent implements OnInit {
                 }
         return nbLabelsBar;
       break;
+      case 'region':
+        for (let values of Array.from(this.barChartLabels.values()) ) {
+          var nbOccu = 0
+          for (const i of Object.keys(data)) {
+            if (values == data[i].region) {
+              nbOccu = nbOccu + 1;
+            }
+          }
+          nbLabelsBar.push(nbOccu);
+        }
+      break;
+      case 'periodicite':
+        for (let values of Array.from(this.barChartLabels.values()) ) {
+          var nbOccu = 0
+          for (const i of Object.keys(data)) {
+            if (values == data[i].periodicite) {
+              nbOccu = nbOccu + 1;
+            }
+          }
+          nbLabelsBar.push(nbOccu);
+        }
+      break;
     }
   }
 
   getTypeData(stat){
     switch(stat){
-      case('musique'):
-        return "Type de musique";
+      case('festivalType'):
+        return "Type de festival";
       break;
       case('dept'):
         return "Département";
       break;
       case('moisDeb'):
-      return "Mois de début"
+        return "Mois de début";
+      break;
+      case 'region':
+        return "Région";
+      break;
+      case 'periodicite':
+        return "Périodicite";
       break;
     }
   }
