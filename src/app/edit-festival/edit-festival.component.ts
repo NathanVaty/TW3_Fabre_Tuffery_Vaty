@@ -145,31 +145,22 @@ export class EditFestivalComponent implements OnInit {
         };
         this.formModif.get('code_insee').setValue(value.code_insee);
         let j;
-        for (j = 0; this.departements[j].nom != value.nom_departement; j++) {
-        }
+        for (j = 0; this.departements[j].nom != value.nom_departement; j++) {}
           this.formModif.get('nom_departement').setValue(this.departements[j]);
-          console.log(this.departements[j]);
-        for (let i = 0; i<this.region.length; i++) {
-          if(this.region[i] = value.region){
-              this.formModif.get('region').setValue(this.region[i]);
-          }
-        }
-        for (let i = 0; i<this.domaines.length; i++) {
-          if(this.domaines[i] = value.domaine){
-              this.formModif.get('domaine').setValue(this.domaines[i]);
-          }
-        }
-        for (let i = 0; i<this.mois.length;i++){
-          if(this.mois[i] = value.mois_habituel_de_debut){
-              this.formModif.get('mois_habituel_de_debut').setValue(this.mois[i]);
-          }
-        }
+
+          let i;
+        for (i = 0; this.region[i] != value.region; i++) {}
+        this.formModif.get('region').setValue(this.region[i]);
+
+        for (i = 0; this.domaines[i] != value.domaine; i++) {}
+        this.formModif.get('domaine').setValue(this.domaines[i]);
+
+        for (i = 0; this.mois[i] != value.mois_habituel_de_debut;i++){}
+        this.formModif.get('mois_habituel_de_debut').setValue(this.mois[i]);
+
         if(value.periodicite!= null) {
-          for (let i = 0; i<this.periodicites.length; i++){
-            if(this.periodicites[i] = value.periodicite){
-                this.formModif.get('periodicite').setValue(this.periodicites[i]);
-            }
-          }
+          for (i = 0; this.periodicites[i] != value.periodicite; i++){}
+            this.formModif.get('periodicite').setValue(this.periodicites[i]);
         }
     });
   }

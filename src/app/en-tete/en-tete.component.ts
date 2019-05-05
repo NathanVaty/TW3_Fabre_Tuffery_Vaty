@@ -173,7 +173,6 @@ export class DialogRecherche implements OnInit {
     this.region = this.info.getRegion();
     this.departements = this.info.getDepartement();
     this.domaines = this.info.getDomaine();
-      console.log(this.region);
   }
   onSubmit(){
     if (this.clickAnnul == false) {
