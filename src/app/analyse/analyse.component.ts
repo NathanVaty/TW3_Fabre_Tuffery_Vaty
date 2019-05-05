@@ -137,7 +137,7 @@ export class AnalyseComponent implements OnInit {
         break;
         case 'periodicite':
           for (const i of Object.keys(stat)) {
-            if (dataLabelsBar.indexOf(stat[i].periodicite)==-1) {
+            if (dataLabelsBar.indexOf(stat[i].periodicite) == -1) {
               dataLabelsBar.push(stat[i].periodicite);
             }
           }
