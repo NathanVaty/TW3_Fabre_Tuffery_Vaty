@@ -96,7 +96,7 @@ export class EditFestivalComponent implements OnInit {
       this.formModif.get('date_de_fin').setValue(this.formatDate(this.formModif.value['date_de_fin']));
       //this.bd.updateFestival(this.formModif.value);
       this.bd.updateFestival(this.formModif.value);
-      this.goback.navigate(['','']);
+      //this.goback.navigate(['','']);
       this.login.connexion({
         ndc:'admin',
         mdp: 'admin'

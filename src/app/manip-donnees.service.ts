@@ -5,6 +5,7 @@ import firestore from 'firebase/firestore';
 import {Subject} from 'rxjs/Subject';
 import { Query, CollectionReference } from '@firebase/firestore-types'
 import { InfoFestival } from './Infofest';
+import { Router } from '@angular/router';
 
 const settings = {timestampsInSnapshots: true};
 // BD de Test
@@ -60,7 +61,7 @@ export class ManipDonneesService {
   region: string;
   site_web: string;
 
-  constructor() {
+  constructor(private goback: Router) {
     firebase.initializeApp(config);
     firebase.firestore().settings(settings);
     this.ref = firebase.firestore();
@@ -83,6 +84,7 @@ export class ManipDonneesService {
 
 
   emitTab() {
+    console.log(this.tabD);
     this.tabDSub.next(this.tabD);
   }
   emitFestival() {
@@ -349,12 +351,29 @@ console.log(unFestival);
       }
     }
 
-    modif(unFestival);
-    this.getDonnees().then((value) => {
-      alert('festival modifié');
-      this.tabD = value;
-      this.emitTab();
+    return new Promise((resolve,reject) => {
+      try {
+        modif(unFestival).then(() => {
+          this.getDonnees().then((value)=> {
+            this.tabD = value;
+            resolve(this.tabD);
+            this.emitTab();
+            this.goback.navigate(['','']);
+          })
+        });
+      } catch(err) {
+        reject([]);
+      }
     });
+    // modif(unFestival);
+    // this.getDonnees().then((value) => {
+    //   alert('festival modifié');
+    //   this.tabD = [];
+    //   this.emitTab();
+    //   this.tabD = value;
+    //   this.emitTab();
+    //   this.goback.navigate(['','']);
+    // });
   }
   deteleFestival(code){
     var donnees;
