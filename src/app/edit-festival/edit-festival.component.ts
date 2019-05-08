@@ -63,6 +63,10 @@ export class EditFestivalComponent implements OnInit {
      if(result == 'supp') {
        this.bd.deteleFestival(this.festival.code_insee);
        this.goback.navigate(['','']);
+       this.login.connexion({
+         ndc:'admin',
+         mdp: 'admin'
+       });
      }
    });
   }
@@ -93,6 +97,10 @@ export class EditFestivalComponent implements OnInit {
       //this.bd.updateFestival(this.formModif.value);
       this.bd.updateFestival(this.formModif.value);
       this.goback.navigate(['','']);
+      this.login.connexion({
+        ndc:'admin',
+        mdp: 'admin'
+      });
     }
     this.toSupp = false;
 
